@@ -1,4 +1,6 @@
-# Laravel 4 + Grunt Asset Workflow Package
+# Laravel 4 + Grunt Asset Workflow Package - BETA
+
+**Please help me by trialing out my package and providing feedback**
 
 ## Contents
 
