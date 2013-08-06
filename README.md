@@ -25,6 +25,10 @@ To install the 'Laravel 4 + Grunt Asset Worklow Package' simply add the followin
 
 `"jason-morton-nz/laravel-grunt": "dev-master"`
 
+Finally, add the following line to the end of you `app/config.php` "providers array":
+
+`'JasonMortonNZ\LaravelGrunt\LaravelGruntServiceProvider',`
+
 Then run `composer update --dev` in your terminal.
 
 ### How to use?
