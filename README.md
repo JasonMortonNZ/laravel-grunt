@@ -49,5 +49,14 @@ The `grunt:watch` command is used to start a the grunt file watcher. This will w
 
 **Note:** That live reload will only work if you have a compatible browser (Chrome & Firefox) with the LiveReload plugin installed.
 
+## Configuration
+You can configure many of the settings for this package, by traversing to it's configuration file. This file is located in you project's:
+
+	/your-project/vendor/jasonmortonnz
+
+This file is heavily commented, so hopefully each setting should be self explainatory.
+
+**Note:** please try not to edit the `package.json` and `grunfile.js` directly. Instead make your required changes in the config.php file, then run `php artisan grunt:setup` to apply the changes.
+
 ## Issues - how to help?
 If you find any bugs, issues errors or believe we could add further useful functionality. Let us know via the github [issues page](https://github.com/JasonMortonNZ/laravel-grunt/issues) for this project here - [https://github.com/JasonMortonNZ/laravel-grunt/issues](https://github.com/JasonMortonNZ/laravel-grunt/issues).
