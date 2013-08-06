@@ -23,7 +23,9 @@ The package can do the following:
 ### Installation
 To install the 'Laravel 4 + Grunt Asset Worklow Package' simply add the following to your composer.json `"require-dev"` array:
 
-`"JasonMortonNZ/LaravelGrunt": "dev-master"`
+`"jason-morton-nz/laravel-grunt": "dev-master"`
+
+Then run `composer update --dev` in your terminal.
 
 ### How to use?
 So, how do you use this package? Well we've tried to make it as simple as possible. There's just 3 commands:
