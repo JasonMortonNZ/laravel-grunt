@@ -2,10 +2,10 @@
 
 ## Contents
 
-- What this package includes and can do?
-- Installation
-- How to use?
-- Issues - how to help
+- [What this package includes and can do?](#what-this-package-includes-and-can-do)
+- [Installation](#installation)
+- [How to use?](#how-to-use)
+- [Issues - how to help](#issues---how-to-help)
 
 ### What this package includes and can do?
 This package is design to help with asset management and front-end workflow when developing in Laravel 4.
@@ -48,4 +48,4 @@ The `grunt:watch` command is used to start a the grunt file watcher. This will w
 **Note:** That live reload will only work if you have a compatible browser (Chrome & Firefox) with the LiveReload plugin installed.
 
 ## Issues - how to help?
-If you find any bugs, issues errors or believe we could add further useful functionality. Let us know via the github issues page for this project.
+If you find any bugs, issues errors or believe we could add further useful functionality. Let us know via the github [issues page](https://github.com/JasonMortonNZ/laravel-grunt/issues) for this project here - [https://github.com/JasonMortonNZ/laravel-grunt/issues](https://github.com/JasonMortonNZ/laravel-grunt/issues).
