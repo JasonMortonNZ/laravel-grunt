@@ -1,0 +1,26 @@
+{
+    "name": "jason-morton-nz/laravel-grunt",
+    "description": "A Laravel 4 Grunt Workflow",
+    "homepage": "https://github.com/JasonMortonNZ/laravel-grunt",
+    "version": "0.0.1",
+    "authors": [
+    {
+        "name": "JasonMortonNZ",
+        "homepage": "https://twitter.com/jasonmortonnz",
+        "role": "Developer"
+    }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x",
+        "illuminate/config": "4.1.x",
+        "illuminate/console": "4.1.x",
+        "symfony/finder": "2.3.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "JasonMortonNZ\\LaravelGrunt": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
