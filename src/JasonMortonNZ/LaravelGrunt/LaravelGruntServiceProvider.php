@@ -90,7 +90,8 @@ class LaravelGruntServiceProvider extends ServiceProvider {
 		$this->commands(
 			'grunt.setup',
 			'grunt.build',
-			'grunt.watch'
+			'grunt.watch',
+			'grunt.config'
 		);
 	}
 
