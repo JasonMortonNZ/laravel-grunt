@@ -25,7 +25,7 @@ class GruntConfigCommand extends Command {
 	public function fire()
 	{
 		$this->info('Copied Laravel-Grunt config file to: app/config/package/jason-morton-nz/laravel-grunt/config.php');
-		shell_exec('php artisan config:publish jason-morton-nz/laravel-grunt');
+		$this->call('config:publish', array('package' => 'jason-morton-nz/laravel-grunt'));
 	}
 
 }
