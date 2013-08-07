@@ -28,6 +28,8 @@ To install the 'Laravel 4 + Grunt Asset Worklow Package' simply add the followin
 
 `"jason-morton-nz/laravel-grunt": "dev-master"`
 
+Then run `composer update --dev` in your terminal.
+
 Next, add the following line to the end of you `app/config.php` "providers array":
 
 `'JasonMortonNZ\LaravelGrunt\LaravelGruntServiceProvider',`
@@ -36,7 +38,6 @@ Finally, run the following command to add the configuration file to your `app/co
 
 `php artisan grunt:config`
 
-Then run `composer update --dev` in your terminal.
 
 ## Configuration
 You can configure many of the settings for this package, by traversing to it's configuration file. This file is located in you project's vendor directory, as below:
