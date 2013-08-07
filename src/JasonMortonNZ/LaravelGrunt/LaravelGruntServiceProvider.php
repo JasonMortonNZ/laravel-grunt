@@ -19,6 +19,7 @@ class LaravelGruntServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->registerBuildCommand();
+		$this->registerConfigCommand();
 		$this->registerSetupCommand();
 		$this->registerWatchCommand();
 
@@ -50,6 +51,19 @@ class LaravelGruntServiceProvider extends ServiceProvider {
 		$this->app['grunt.build'] = $this->app->share(function($app)
 		{
 			return new GruntBuildCommand();
+		});
+	}
+
+	/**
+	 * Register the grunt.config command to the IoC
+	 * 
+	 * @return  JasonMortonNZ\LaravelGrunt\GruntConfigCommand
+	 */
+	public function registerConfigCommand()
+	{
+		$this->app['grunt.config'] = $this->app->share(function($app)
+		{
+			return new GruntConfigCommand();
 		});
 	}
 
