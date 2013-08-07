@@ -11,7 +11,7 @@ return array(
 	| directory. We've set a sensible default, but feel free to update it.
 	|
 	*/
-	'assets_path' => 'public/assets',
+	'assets_path' => 'assets',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return array(
 	| directory. We've set a sensible default, but feel free to update it.
 	|
 	*/
-	'css_path' => 'public/assets/css',
+	'css_path' => 'assets/css',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -35,9 +35,9 @@ return array(
 	|
 	*/
 	'css_files' => array(
-		'public/assets/css/style_one.css',
-		'public/assets/css/style_two.css',
-		'public/assets/css/less.css'
+		'assets/css/style_one.css',
+		'assets/css/style_two.css',
+		'assets/css/less.css'
 	),
 
 	/*
@@ -49,7 +49,7 @@ return array(
 	| directory. We've set a sensible default, but feel free to update it.
 	|
 	*/
-	'js_path' => 'public/assets/js',
+	'js_path' => 'assets/js',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -62,8 +62,8 @@ return array(
 	|
 	*/
 	'js_files' => array(
-		'public/assets/js/script_one.js',
-		'public/assets/js/script_two.js'
+		'assets/js/script_one.js',
+		'assets/js/script_two.js'
 	),
 
 	/*
@@ -75,7 +75,7 @@ return array(
 	| directory. We've set a sensible default, but feel free to update it.
 	|
 	*/
-	'less_path' => 'public/assets/less',
+	'less_path' => 'assets/less',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -89,7 +89,7 @@ return array(
 	| Note: you LESS will be compiled into a file named "less.css" in the
 	| specified "css_path" above. So be sure to add it into your "css_files" array
 	*/
-	'less_file' => 'public/assets/less/main.less',
+	'less_file' => 'assets/less/main.less',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -100,7 +100,7 @@ return array(
 	| directory. We've set a sensible default, but feel free to update it.
 	|
 	*/
-	'sass_path' => 'public/assets/sass',
+	'sass_path' => 'assets/sass',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -112,7 +112,7 @@ return array(
 	| We've set a sensible default, but feel free to update it.
 	|
 	*/
-	'sass_file' => 'public/assets/sass/main.sass',
+	'sass_file' => 'assets/sass/main.sass',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -123,7 +123,7 @@ return array(
 	| directory. We've set a sensible default, but feel free to update it.
 	|
 	*/
-	'stylus_path' => 'public/assets/stylus',
+	'stylus_path' => 'assets/stylus',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -135,6 +135,6 @@ return array(
 	| We've set a sensible default, but feel free to update it.
 	|
 	*/
-	'stylus_file' => 'public/assets/stylus/main.stylus',
+	'stylus_file' => 'assets/stylus/main.stylus',
 
 );

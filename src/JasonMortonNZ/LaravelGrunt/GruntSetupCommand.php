@@ -86,7 +86,7 @@ class GruntSetupCommand extends Command {
 
 		// Create assets folder
 		$this->generator->createAssetsFolder();
-		$this->info('Assets folder (public/assets/) - successfully created!');
+		$this->info('Assets folder (assets/) - successfully created!');
 
 		// Create package.json file
 		$this->generator->createPackageFile();
