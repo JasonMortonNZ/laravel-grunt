@@ -5,6 +5,7 @@
 ## Contents
 
 - [What this package includes and can do?](#what-this-package-includes-and-can-do)
+- [Configuration](#configuration)
 - [Installation](#installation)
 - [How to use?](#how-to-use)
 - [Issues - how to help](#issues---how-to-help)
@@ -27,11 +28,24 @@ To install the 'Laravel 4 + Grunt Asset Worklow Package' simply add the followin
 
 `"jason-morton-nz/laravel-grunt": "dev-master"`
 
-Finally, add the following line to the end of you `app/config.php` "providers array":
+Next, add the following line to the end of you `app/config.php` "providers array":
 
 `'JasonMortonNZ\LaravelGrunt\LaravelGruntServiceProvider',`
 
+Finally, run the following command to add the configuration file to your `app/config/packages` directory:
+
+`php artisan grunt:config`
+
 Then run `composer update --dev` in your terminal.
+
+## Configuration
+You can configure many of the settings for this package, by traversing to it's configuration file. This file is located in you project's vendor directory, as below:
+
+	`app/config/packages/jason-morton-nz/laravel-grunt/config.php`
+
+This file is heavily commented, so hopefully each setting should be self explainatory.
+
+**Note:** please try not to edit the `package.json` and `grunfile.js` directly. Instead make your required changes in the config.php file, then run `php artisan grunt:setup` to apply the changes.
 
 ### How to use?
 So, how do you use this package? Well we've tried to make it as simple as possible. There's just 3 commands:
@@ -54,15 +68,6 @@ The `grunt:watch` command is used to start a the grunt file watcher. This will w
 `php artisan grunt:watch`
 
 **Note:** That live reload will only work if you have a compatible browser (Chrome & Firefox) with the LiveReload plugin installed.
-
-## Configuration
-You can configure many of the settings for this package, by traversing to it's configuration file. This file is located in you project's vendor directory, as below:
-
-	/your-project/vendor/jason-morton-nz/laravel-grunt/src/config/config.php
-
-This file is heavily commented, so hopefully each setting should be self explainatory.
-
-**Note:** please try not to edit the `package.json` and `grunfile.js` directly. Instead make your required changes in the config.php file, then run `php artisan grunt:setup` to apply the changes.
 
 ## Issues - how to help?
 If you find any bugs, issues errors or believe we could add further useful functionality. Let us know via the github [issues page](https://github.com/JasonMortonNZ/laravel-grunt/issues) for this project here - [https://github.com/JasonMortonNZ/laravel-grunt/issues](https://github.com/JasonMortonNZ/laravel-grunt/issues).
