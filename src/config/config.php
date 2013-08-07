@@ -15,6 +15,18 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| Published Assets Folder Path
+	|--------------------------------------------------------------------------
+	|
+	| This is where you can specify a custom path to your completed compiled,
+	| minified and linted assets to be published to directory. We've set a 
+	| sensible default, but feel free to update it.
+	|
+	*/
+	'publish_path' => 'public/assets',
+
+	/*
+	|--------------------------------------------------------------------------
 	| The CSS Path
 	|--------------------------------------------------------------------------
 	|
@@ -36,8 +48,7 @@ return array(
 	*/
 	'css_files' => array(
 		'assets/css/style_one.css',
-		'assets/css/style_two.css',
-		'assets/css/less.css'
+		'assets/css/style_two.css'
 	),
 
 	/*

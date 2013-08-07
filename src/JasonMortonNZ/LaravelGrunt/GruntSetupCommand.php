@@ -137,7 +137,7 @@ class GruntSetupCommand extends Command {
 		// Do they want preprocessing?
 		$this->wantPreprocessing();
 		// Do they want phpUnit testing?
-		$this->wantPhpUnitTesting();
+		// $this->wantPhpUnitTesting();
 		// Do they want js linting?
 		// $this->wantJsLinting();
 	}
