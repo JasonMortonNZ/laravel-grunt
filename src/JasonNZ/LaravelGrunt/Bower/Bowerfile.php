@@ -62,7 +62,7 @@ class Bowerfile {
 		$customContent = $this->addOptions($rawContents, $this->options);
 
 		// Write file
-		$this->writeFile($customContent, $this->getPath());
+		$this->writeFile($customContent, 'bower.json');
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Bowerfile {
 		$customContent = $this->addOptions($rawContents, $this->options);
 
 		// Write file
-		$this->writeFile($customContent, $this->config->get('laravel-grunt::assets_path') . '/.bowerrc');
+		$this->writeFile($customContent, '.bowerrc');
 	}
 
 	/**
