@@ -148,4 +148,33 @@ return array(
 	*/
 	'stylus_file' => 'assets/stylus/main.stylus',
 
+	/*
+	|--------------------------------------------------------------------------
+	| Bower Dependencies (vendor) Folder Path
+	|--------------------------------------------------------------------------
+	|
+	| This is where you can specify a custom path for you bower dependencies to
+	| reside in. We've set a sensible default, but feel free to update it.
+	|
+	*/
+	"vendor_path" => "assets/vendor",
+
+	/*
+	|--------------------------------------------------------------------------
+	| Bower Dependencies
+	|--------------------------------------------------------------------------
+	|
+	| This is where you can specify your bower dependencies. We've set a 
+	| sensible default, but feel free to update it.
+	| 
+	| **Note**: Please use key/value pair to represent dependency & version. Use 
+	| the word "null" if you require the latest version, or don't know a version
+	| number
+	|
+	*/
+	"bower_dependencies" => array(
+		"jquery"    => "~1.10.2",
+		"bootstrap" => "~3"
+	),
+
 );

@@ -22,17 +22,18 @@ The package can do the following:
 - compile Stylus
 - build all asset group with one command
 - Live reload (watches asset files for changes and reloads the browser)
+- ** NOW include support for bower! **
 
 ### Installation
 To install the 'Laravel 4 + Grunt Asset Worklow Package' simply add the following to your composer.json `"require-dev"` array:
 
-`"jason-morton-nz/laravel-grunt": "dev-master"`
+`"jason-nz/laravel-grunt": "dev-master"`
 
 Then run `composer update --dev` in your terminal.
 
 Next, add the following line to the end of you `app/config.php` "providers array":
 
-`'JasonMortonNZ\LaravelGrunt\LaravelGruntServiceProvider',`
+`'JasonNZ\LaravelGrunt\LaravelGruntServiceProvider',`
 
 Finally, run the following command to add the configuration file to your `app/config/packages` directory:
 
@@ -42,7 +43,7 @@ Finally, run the following command to add the configuration file to your `app/co
 ## Configuration
 You can configure many of the settings for this package, by traversing to it's configuration file. This file is located in you project's vendor directory, as below:
 
-	`app/config/packages/jason-morton-nz/laravel-grunt/config.php`
+	`app/config/packages/jason-nz/laravel-grunt/config.php`
 
 This file is heavily commented, so hopefully each setting should be self explainatory.
 
@@ -69,6 +70,21 @@ The `grunt:watch` command is used to start a the grunt file watcher. This will w
 `php artisan grunt:watch`
 
 **Note:** That live reload will only work if you have a compatible browser (Chrome & Firefox) with the LiveReload plugin installed.
+
+#### bower:setup
+The `bower:setup` command will setup `bower.json` and `.bowerrc` files based upon the configuration settings you've specified in this packages `config.php` file. You can add a custom path for bowers vendor folder, as well as stipulate all the bower dependencies you require. All this can be done without touching a single line of JavaScript or JSON. You can use the command as follows:
+
+`php artisan bower:setup`
+
+#### bower:install
+The `bower:install` command is used to install you bower dependecies. You can use the command as follows:
+
+`php artisan bower:install`
+
+#### bower:update
+The `bower:update` command update your bower dependecies to newer versions if available. You can use the command as follows:
+
+`php artisan bower:update`
 
 ## Issues - how to help?
 If you find any bugs, issues errors or believe we could add further useful functionality. Let us know via the github [issues page](https://github.com/JasonMortonNZ/laravel-grunt/issues) for this project here - [https://github.com/JasonMortonNZ/laravel-grunt/issues](https://github.com/JasonMortonNZ/laravel-grunt/issues).
