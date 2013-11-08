@@ -25,7 +25,7 @@ The package can do the following:
 - ** NOW include support for bower! **
 
 ### Installation
-To install the 'Laravel 4 + Grunt Asset Worklow Package' simply add the following to your composer.json `"require-dev"` array:
+To install the 'Laravel 4 + Grunt Asset Workflow Package' simply add the following to your composer.json `"require-dev"` array:
 
 `"jason-morton-nz/laravel-grunt": "dev-master"`
 
@@ -43,9 +43,9 @@ Finally, run the following command to add the configuration file to your `app/co
 ## Configuration
 You can configure many of the settings for this package, by traversing to it's configuration file. This file is located in you project's vendor directory, as below:
 
-	`app/config/packages/jason-nz/laravel-grunt/config.php`
+	`app/config/packages/jason-morton-nz/laravel-grunt/config.php`
 
-This file is heavily commented, so hopefully each setting should be self explainatory.
+This file is heavily commented, so hopefully each setting should be self explanatory.
 
 **Note:** please try not to edit the `package.json` and `grunfile.js` directly. Instead make your required changes in the config.php file, then run `php artisan grunt:setup` to apply the changes.
 
@@ -53,7 +53,7 @@ This file is heavily commented, so hopefully each setting should be self explain
 So, how do you use this package? Well we've tried to make it as simple as possible. There's just 3 commands:
 
 #### grunt:setup
-The `grunt:setup` command is used to setup your requuired asset + grunt workflow. You use the command as follows:
+The `grunt:setup` command is used to setup your required asset + grunt workflow. You use the command as follows:
 
 `php artisan grunt:setup`
 
@@ -77,12 +77,12 @@ The `bower:setup` command will setup `bower.json` and `.bowerrc` files based upo
 `php artisan bower:setup`
 
 #### bower:install
-The `bower:install` command is used to install you bower dependecies. You can use the command as follows:
+The `bower:install` command is used to install you bower dependencies. You can use the command as follows:
 
 `php artisan bower:install`
 
 #### bower:update
-The `bower:update` command update your bower dependecies to newer versions if available. You can use the command as follows:
+The `bower:update` command update your bower dependencies to newer versions if available. You can use the command as follows:
 
 `php artisan bower:update`
 
