@@ -7,13 +7,9 @@ use Goez\LaravelGrunt\Grunt\Gruntfile;
 use Goez\LaravelGrunt\Grunt\GruntGenerator;
 use Goez\LaravelGrunt\Bower\Bowerfile;
 use Goez\LaravelGrunt\Bower\BowerGenerator;
-use Goez\LaravelGrunt\Commands\GruntSetupCommand;
-use Goez\LaravelGrunt\Commands\GruntBuildCommand;
-use Goez\LaravelGrunt\Commands\GruntWatchCommand;
 use Goez\LaravelGrunt\Commands\GruntConfigCommand;
+use Goez\LaravelGrunt\Commands\GruntSetupCommand;
 use Goez\LaravelGrunt\Commands\BowerSetupCommand;
-use Goez\LaravelGrunt\Commands\BowerInstallCommand;
-use Goez\LaravelGrunt\Commands\BowerUpdateCommand;
 
 class LaravelGruntServiceProvider extends ServiceProvider
 {
@@ -31,19 +27,22 @@ class LaravelGruntServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Register Grunt Related Stuff
         $this->registerGruntConfigCommand();
         $this->registerGruntSetupCommand();
-        $this->registerGruntBuildCommand();
-        $this->registerGruntWatchCommand();
-
-        // Register Bower Related Stuff
         $this->registerBowerSetupCommand();
-        $this->registerBowerInstallCommand();
-        $this->registerBowerUpdateCommand();
-
-        // Register Artisan Commands
         $this->registerCommands();
+    }
+
+    /**
+     * Register the grunt.config command to the IoC
+     *
+     * @return \Goez\LaravelGrunt\Commands\GruntConfigCommand
+     */
+    public function registerGruntConfigCommand()
+    {
+        $this->app['grunt.config'] = $this->app->share(function($app) {
+            return new GruntConfigCommand();
+        });
     }
 
     /**
@@ -62,42 +61,6 @@ class LaravelGruntServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the grunt.build command to the IoC
-     *
-     * @return \Goez\LaravelGrunt\Commands\GruntBuildCommand
-     */
-    public function registerGruntBuildCommand()
-    {
-        $this->app['grunt.build'] = $this->app->share(function($app) {
-            return new GruntBuildCommand();
-        });
-    }
-
-    /**
-     * Register the grunt.config command to the IoC
-     *
-     * @return \Goez\LaravelGrunt\Commands\GruntConfigCommand
-     */
-    public function registerGruntConfigCommand()
-    {
-        $this->app['grunt.config'] = $this->app->share(function($app) {
-            return new GruntConfigCommand();
-        });
-    }
-
-    /**
-     * Register the grunt.watch command to the IoC
-     *
-     * @return \Goez\LaravelGrunt\Commands\GruntWatchCommand
-     */
-    public function registerGruntWatchCommand()
-    {
-        $this->app['grunt.watch'] = $this->app->share(function($app) {
-            return new GruntWatchCommand();
-        });
-    }
-
-    /**
      * Register the bower.setup command to the IoC
      *
      * @return \Goez\LaravelGrunt\Commands\BowerSetupCommand
@@ -112,40 +75,12 @@ class LaravelGruntServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Register the bower.install command to the IoC
-     *
-     * @return \Goez\LaravelGrunt\Commands\BowerInstallCommand
-     */
-    public function registerBowerInstallCommand()
-    {
-        $this->app['bower.install'] = $this->app->share(function($app) {
-            return new BowerInstallCommand();
-        });
-    }
-
-    /**
-     * Register the bower.update command to the IoC
-     *
-     * @return \Goez\LaravelGrunt\Commands\BowerUpdateCommand
-     */
-    public function registerBowerUpdateCommand()
-    {
-        $this->app['bower.update'] = $this->app->share(function($app) {
-            return new BowerUpdateCommand();
-        });
-    }
-
     public function registerCommands()
     {
         $this->commands(
-            'grunt.setup',
-            'grunt.build',
             'grunt.config',
-            'grunt.watch',
-            'bower.setup',
-            'bower.install',
-            'bower.update'
+            'grunt.setup',
+            'bower.setup'
         );
     }
 
@@ -156,7 +91,7 @@ class LaravelGruntServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('jason-nz/laravel-grunt');
+        $this->package('goez/laravel-grunt');
     }
 
     /**
