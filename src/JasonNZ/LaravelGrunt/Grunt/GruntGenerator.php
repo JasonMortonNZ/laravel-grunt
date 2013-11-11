@@ -49,6 +49,9 @@ class GruntGenerator implements GeneratorInterface {
 		$this->createPackagefile();
 
 		// Generate gruntfile.js
+        // Create .jshintrc file
+        $this->createJsHintRcfile();
+
 		$this->createGruntfile($plugins);
 
 		// Add node_modules to .gitignore
@@ -79,6 +82,17 @@ class GruntGenerator implements GeneratorInterface {
 		// Copy content into new file called package.json in project root.
 		$this->filesystem->put('package.json', $this->filesystem->get($path));
 	}
+
+    /**
+     * Create the .jshintrc file
+     */
+    public function createJsHintRcfile()
+    {
+        $path = __DIR__ . "/../templates/jshintrc.txt";
+
+        // Copy content into new file called package.json in project root.
+        $this->filesystem->put('.jshintrc', $this->filesystem->get($path));
+    }
 
 	/**
 	 * Create an assets folder
