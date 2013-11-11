@@ -78,7 +78,6 @@ class BowerGenerator implements GeneratorInterface
     /**
      * Create an assets folder
      *
-     * @param  string $path
      * @return void
      */
     public function createVendorFolder()
