@@ -1,208 +1,354 @@
+'use strict';
+
+// # Globbing
+// for performance reasons we're only matching one level down:
+// 'test/spec/{,*/}*.js'
+// use this if you want to recursively match all subfolders:
+// 'test/spec/**/*.js'
+
 module.exports = function (grunt) {
-	
-	// Initialize configuration object
-	grunt.initConfig({
+    // show elapsed time at the end
+    require('time-grunt')(grunt);
+    // load all grunt tasks
+    require('load-grunt-tasks')(grunt);
 
-		// Read in project settings
-		pkg: grunt.file.readJSON('package.json'),
+    grunt.initConfig({
+        // configurable paths
+        path: {
+            app: '{{ assets_path }}',
+            dist: '{{ published_path }}'
+        },
+        watch: {
+            compass: {
+                files: ['<%= path.app %>/styles/{,*/}*.{scss,styles}'],
+                tasks: ['compass:server', 'autoprefixer']
+            },
+            styles: {
+                files: ['<%= path.app %>/styles/{,*/}*.css'],
+                tasks: ['copy:styles', 'autoprefixer']
+            },
+            livereload: {
+                options: {
+                    livereload: '<%= connect.options.livereload %>'
+                },
+                files: [
+                    '<%= path.app %>/*.html',
+                    '.tmp/styles/{,*/}*.css',
+                    '{.tmp,<%= path.app %>}/scripts/{,*/}*.js',
+                    '<%= path.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                ]
+            }
+        },
+        connect: {
+            options: {
+                port: 9000,
+                livereload: 35729,
+                // change this to '0.0.0.0' to access the server from outside
+                hostname: 'localhost'
+            },
+            livereload: {
+                options: {
+                    open: true,
+                    base: [
+                        '.tmp',
+                        '<%= path.app %>'
+                    ]
+                }
+            },
+            test: {
+                options: {
+                    base: [
+                        '.tmp',
+                        'test',
+                        '<%= path.app %>'
+                    ]
+                }
+            },
+            dist: {
+                options: {
+                    open: true,
+                    base: '<%= path.dist %>'
+                }
+            }
+        },
+        clean: {
+            dist: {
+                files: [{
+                    dot: true,
+                    src: [
+                        '.tmp',
+                        '<%= path.dist %>/*',
+                        '!<%= path.dist %>/.git*'
+                    ]
+                }]
+            },
+            server: '.tmp'
+        },
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc'
+            },
+            all: [
+                'Gruntfile.js',
+                '<%= path.app %>/scripts/{,*/}*.js',
+                '!<%= path.app %>/scripts/vendor/*',
+                'test/spec/{,*/}*.js'
+            ]
+        },
+        mocha: {
+            all: {
+                options: {
+                    run: true,
+                    urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
+                }
+            }
+        },
+        compass: {
+            options: {
+                sassDir: '<%= path.app %>/styles',
+                cssDir: '.tmp/styles',
+                generatedImagesDir: '.tmp/images/generated',
+                imagesDir: '<%= path.app %>/images',
+                javascriptsDir: '<%= path.app %>/scripts',
+                fontsDir: '<%= path.app %>/styles/fonts',
+                importPath: '<%= path.app %>/bower_components',
+                httpImagesPath: '/images',
+                httpGeneratedImagesPath: '/images/generated',
+                httpFontsPath: '/styles/fonts',
+                relativeAssets: false,
+                assetCacheBuster: false
+            },
+            dist: {
+                options: {
+                    generatedImagesDir: '<%= path.dist %>/images/generated'
+                }
+            },
+            server: {
+                options: {
+                    debugInfo: true
+                }
+            }
+        },
+        autoprefixer: {
+            options: {
+                browsers: ['last 1 version']
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '.tmp/styles/',
+                    src: '{,*/}*.css',
+                    dest: '.tmp/styles/'
+                }]
+            }
+        },
+        // not used since Uglify task does concat,
+        // but still available if needed
+        /*concat: {
+         dist: {}
+         },*/
+        requirejs: {
+            dist: {
+                // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+                options: {
+                    // `name` and `out` is set by grunt-usemin
+                    baseUrl: '<%= path.app %>/scripts',
+                    optimize: 'none',
+                    // TODO: Figure out how to make sourcemaps work with grunt-usemin
+                    // https://github.com/path/grunt-usemin/issues/30
+                    //generateSourceMaps: true,
+                    // required to support SourceMaps
+                    // http://requirejs.org/docs/errors.html#sourcemapcomments
+                    preserveLicenseComments: false,
+                    useStrict: true,
+                    wrap: true
+                    //uglify2: {} // https://github.com/mishoo/UglifyJS2
+                }
+            }
+        },
+        rev: {
+            dist: {
+                files: {
+                    src: [
+                        '<%= path.dist %>/scripts/{,*/}*.js',
+                        '<%= path.dist %>/styles/{,*/}*.css',
+                        '<%= path.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+                        '<%= path.dist %>/styles/fonts/{,*/}*.*'
+                    ]
+                }
+            }
+        },
+        useminPrepare: {
+            options: {
+                dest: '<%= path.dist %>'
+            },
+            html: '<%= path.app %>/index.html'
+        },
+        usemin: {
+            options: {
+                dirs: ['<%= path.dist %>']
+            },
+            html: ['<%= path.dist %>/{,*/}*.html'],
+            css: ['<%= path.dist %>/styles/{,*/}*.css']
+        },
+        imagemin: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= path.app %>/images',
+                    src: '{,*/}*.{png,jpg,jpeg}',
+                    dest: '<%= path.dist %>/images'
+                }]
+            }
+        },
+        svgmin: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= path.app %>/images',
+                    src: '{,*/}*.svg',
+                    dest: '<%= path.dist %>/images'
+                }]
+            }
+        },
+        cssmin: {
+            // This task is pre-configured if you do not wish to use Usemin
+            // blocks for your CSS. By default, the Usemin block from your
+            // `index.html` will take care of minification, e.g.
+            //
+            //     <!-- build:css({.tmp,app}) styles/main.css -->
+            //
+            // dist: {
+            //     files: {
+            //         '<%= path.dist %>/styles/main.css': [
+            //             '.tmp/styles/{,*/}*.css',
+            //             '<%= path.app %>/styles/{,*/}*.css'
+            //         ]
+            //     }
+            // }
+        },
+        htmlmin: {
+            dist: {
+                options: {
+                    /*removeCommentsFromCDATA: true,
+                     // https://github.com/path/grunt-usemin/issues/44
+                     //collapseWhitespace: true,
+                     collapseBooleanAttributes: true,
+                     removeAttributeQuotes: true,
+                     removeRedundantAttributes: true,
+                     useShortDoctype: true,
+                     removeEmptyAttributes: true,
+                     removeOptionalTags: true*/
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= path.app %>',
+                    src: '*.html',
+                    dest: '<%= path.dist %>'
+                }]
+            }
+        },
+        // Put files not handled in other tasks here
+        copy: {
+            dist: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= path.app %>',
+                    dest: '<%= path.dist %>',
+                    src: [
+                        '*.{ico,png,txt}',
+                        '.htaccess',
+                        'images/{,*/}*.{webp,gif}',
+                        'styles/fonts/{,*/}*.*',
+                        'bower_components/styles-bootstrap/fonts/*.*'
+                    ]
+                }]
+            },
+            styles: {
+                expand: true,
+                dot: true,
+                cwd: '<%= path.app %>/styles',
+                dest: '.tmp/styles/',
+                src: '{,*/}*.css'
+            }
+        },
+        modernizr: {
+            devFile: '<%= path.app %>/bower_components/modernizr/modernizr.js',
+            outputFile: '<%= path.dist %>/bower_components/modernizr/modernizr.js',
+            files: [
+                '<%= path.dist %>/scripts/{,*/}*.js',
+                '<%= path.dist %>/styles/{,*/}*.css',
+                '!<%= path.dist %>/scripts/vendor/*'
+            ],
+            uglify: true
+        },
+        concurrent: {
+            server: [
+                'compass',
+                'copy:styles'
+            ],
+            test: [
+                'copy:styles'
+            ],
+            dist: [
+                'compass',
+                'copy:styles',
+                'imagemin',
+                'svgmin',
+                'htmlmin'
+            ]
+        },
+        bower: {
+            options: {
+                exclude: ['modernizr']
+            },
+            all: {
+                rjsConfig: '<%= path.app %>/scripts/main.js'
+            }
+        }
+    });
 
-		// User editable project settings & variables
-		options: {
-			// Base path to your assets folder
-			base: '{{assets_path}}',
+    grunt.registerTask('server', function (target) {
+        if (target === 'dist') {
+            return grunt.task.run(['build', 'connect:dist:keepalive']);
+        }
 
-			// Published assets path
-			publish: '{{publish_path}}',
+        grunt.task.run([
+            'clean:server',
+            'concurrent:server',
+            'autoprefixer',
+            'connect:livereload',
+            'watch'
+        ]);
+    });
 
-			// Files to be clean on rebuild
-			clean: {
-				all: ['<%= options.css.concat %>', '<%= options.css.min %>', '<%= options.less.compiled %>', '<%= options.sass.compiled %>', '<%= options.stylus.compiled %>', '<%= options.js.min %>', '<%= options.js.concat %>', '<%= options.less.compiled %>'],
-				concat: ['<%= options.css.concat %>', '<%= options.js.concat %>']
-			},
+    grunt.registerTask('test', [
+        'clean:server',
+        'concurrent:test',
+        'autoprefixer',
+        'connect:test',
+        'mocha'
+    ]);
 
-			// CSS settings
-			css: {
-				base: '{{css_path}}',			 				// Base path to your CSS folder
-				files: [{{css_files}}],							// CSS files in order you'd like them concatenated and minified
-				concat: '<%= options.css.base %>/concat.css',	// Name of the concatenated CSS file
-				min: '<%= options.publish %>/style.min.css'		// Name of the minified CSS file
-			},
+    grunt.registerTask('build', [
+        'clean:dist',
+        'useminPrepare',
+        'concurrent:dist',
+        'autoprefixer',
+        'requirejs',
+        'concat',
+        'cssmin',
+        'uglify',
+        'modernizr',
+        'copy:dist',
+        'rev',
+        'usemin'
+    ]);
 
-			// JavaScript settings
-			js: {
-				base: '{{js_path}}',							// Base path to you JS folder
-				files: [{{js_files}}],							// JavaScript files in order you'd like them concatenated and minified
-				concat: '<%= options.js.base %>/concat.js',		// Name of the concatenated JavaScript file
-				min: '<%= options.publish %>/script.min.js'		// Name of the minified JavaScript file
-			},
-
-			// LESS Settings
-			less: {
-				base: '{{less_path}}',							// Base path to you LESS folder
-				file: '{{less_file}}',							// LESS file (ideally, one file which contains imports)
-				compiled: '<%= options.css.base %>/less.css'	// Name of the compiled LESS file
-			},
-
-			// SASS Settings
-			sass: {
-				base: '{{sass_path}}',							// Base path to you SASS folder
-				file: '{{sass_file}}',							// SASS file (ideally, one file which contains imports)
-				compiled: '<%= options.css.base %>/sass.css'	// Name of the compiled SASS file
-			},
-
-			// STYLUS Settings
-			stylus: {
-				base: '{{stylus_path}}',							// Base path to you STYLUS folder
-				file: '{{stylus_file}}',							// STYLUS file (ideally, one file which contains imports)
-				compiled: '<%= options.css.base %>/stylus.css'		// Name of the compiled STYLUS file
-			},
-
-			// Notification messages
-			notify: {
-				watch: {
-					title: 'Live Reloaded!',
-					message: 'Files were modified, recompiled and site reloaded'
-				}
-			},
-
-			// Files and folders to watch for live reload and rebuild purposes
-			watch: {
-				files: ['<%= options.js.files %>', '<%= options.css.files %>', '<%= options.less.base %>/*.less',
-				 '<%= options.sass.base %>/*.sass', '<%= options.stylus.base %>/*.styl',
-				 '!<%= option.js.min %>', '!<%= options.less.compiled %>', '!<%= options.sass.compiled %>', '!<%= options.stylus.compiled %>']
-			}
-		},
-
-		// Clean files and folders before replacement
-		clean: {
-			all: {
-				src: '<%= options.clean.all %>'
-			},
-			concat: {
-				src: '<%= options.clean.concat %>'
-			}
-		},
-
-		// Concatenate multiple sets of files
-		concat: {
-			css: {
-				files: {
-					'<%= options.css.concat %>' : ['<%= options.css.files %>']
-				}
-			},
-			js: {
-				options: {
-					block: true,
-					line: true,
-					stripBanners: true
-				},
-				files: {
-					'<%= options.js.concat %>' : '<%= options.js.files %>',
-				}
-			}
-		},
-
-		// Minify and concatenate CSS files
-		cssmin: {
-			minify: {
-	       		src: '<%= options.css.concat %>',
-	        	dest: '<%= options.css.min %>'
-			}
-		},
-
-		// Javascript linting - JS Hint
-		jshint: {
-			files: ['<%= options.js.files %>'],
-			options: {
-				// Options to override JSHint defaults
-				curly: true,
-				indent: 4,
-				trailing: true,
-				devel: true,
-				globals: {
-					jQuery: true
-				}
-			}
-		},
-
-		// Compile LESS files
-		less: {
-			main: {
-				options: {
-					yuicompress: true,
-					ieCompat: true
-				},
-				files: {
-					'<%= options.less.compiled %>': '<%= options.less.file %>'
-				}
-			}
-		},
-
-		// Compile SASS files
-		sass: {
-		    main: {
-		        files: {
-		        	'<%= options.sass.compiled %>': '<%= options.sass.file %>'
-		        }
-		    }
-		},
-
-		// Compile STYLUS files
-		stylus: {
-		    main: {
-		        files: {
-		        	'<%= options.stylus.compiled %>': '<%= options.stylus.file %>'
-		        }
-		    }
-		},
-
-		// Display notifications
-		notify: {
-			watch: {
-				options: {
-					title: '<%= options.notify.watch.title %>',
-					message: '<%= options.notify.watch.message %>'
-				}
-			}
-		},
-
-		// Javascript minification - uglify
-		uglify: {
-			options: {
-				preserveComments: false
-			},
-			files: {
-				src: '<%= options.js.concat %>',
-				dest: '<%= options.js.min %>'
-			}
-		},
-
-		// Watch for files and folder changes
-		watch: {
-			options: {
-				livereload: true
-			},
-			files: '<%= options.watch.files %>',
-			tasks: ['default', 'notify:watch']
-		}
-
-
-	});
-
-	// Load npm tasks
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-compress');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-contrib-sass');
-	grunt.loadNpmTasks('grunt-contrib-stylus');
-	grunt.loadNpmTasks('grunt-contrib-livereload');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-notify');
-
-	// Register tasks
-	grunt.registerTask('default', ['clean:all', {{tasks}} 'concat:css', 'concat:js', 'cssmin', 'uglify', 'clean:concat']); // Default task
-}
+    grunt.registerTask('default', [
+        'jshint',
+        'test',
+        'build'
+    ]);
+};
