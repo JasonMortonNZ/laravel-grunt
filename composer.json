@@ -1,6 +1,7 @@
 {
     "name": "goez/laravel-grunt",
     "description": "Asset manager for Laravel 4 using the power of Grunt.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Jace Ju",
