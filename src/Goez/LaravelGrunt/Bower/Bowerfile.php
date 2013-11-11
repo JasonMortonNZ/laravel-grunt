@@ -33,7 +33,7 @@ class Bowerfile
      *
      * @var array
      */
-    protected $options = array('vendor_path', 'bower_dependencies');
+    protected $options = array('assets_path');
 
     /**
      * Constructor
@@ -94,7 +94,7 @@ class Bowerfile
     protected function addOptions($content, $options)
     {
         foreach ($options as $option) {
-            $pattern = '/{{' . $option . '}}/i';
+            $pattern = '/{{\s*' . $option . '\s*}}/i';
             $config = $this->config->get('laravel-grunt::' . $option);
 
             // If config item is an array, built a JSON style array string from it.
