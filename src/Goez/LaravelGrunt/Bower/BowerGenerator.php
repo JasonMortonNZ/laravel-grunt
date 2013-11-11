@@ -82,7 +82,7 @@ class BowerGenerator implements GeneratorInterface
      */
     public function createVendorFolder()
     {
-        $path = $this->config->get('laravel-grunt::vendor_path');
+        $path = $this->config->get('laravel-grunt::assets') . '/vendor';
 
         if ( ! $this->filesystem->exists($path)) {
             $this->filesystem->makeDirectory($path, 0777, true);
