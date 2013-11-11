@@ -1,9 +1,11 @@
-<?php namespace JasonNZ\LaravelGrunt\Bower;
+<?php
+
+namespace Goez\LaravelGrunt\Grunt;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Config\Repository as Config;
 
-class Bowerfile
+class Gruntfile
 {
     /**
      * Filesystem Instance
@@ -20,7 +22,7 @@ class Bowerfile
     protected $config;
 
     /**
-     * Base path to where bower.json is to be stored
+     * Base path to where Gruntfile.js is to be stored
      *
      * @var string
      */
@@ -31,7 +33,7 @@ class Bowerfile
      *
      * @var array
      */
-    protected $options = array('vendor_path', 'bower_dependencies');
+    protected $options = array('assets_path', 'publish_path', 'css_path', 'css_files', 'js_path', 'js_files', 'less_path', 'less_file', 'sass_path', 'sass_file', 'stylus_path', 'stylus_file');
 
     /**
      * Constructor
@@ -44,46 +46,53 @@ class Bowerfile
     {
         $this->filesystem = $filesystem;
         $this->config = $config;
-        $this->path = $path ?: $this->config->get('laravel-grunt::assets_path');
+        $this->path = $path ?: base_path();
     }
 
     /**
-     * Create a custom bower.json base upon users requirements
+     * Create a custom gruntfile.js base upon users requirements
      *
+     * @param  array $plugins
      * @return void
      */
-    public function createBowerJsonFile()
+    public function create(array $plugins)
     {
-        // Get raw bower.json template (without custom options)
-        $rawPath = __DIR__ . '/../templates/bowerjson.txt';
+        // Get raw gruntfile.js template (without custom options)
+        $rawPath = __DIR__ . '/../templates/gruntfile.txt';
         $rawContents = $this->filesystem->get($rawPath);
 
         // Add user specified options
         $customContent = $this->addOptions($rawContents, $this->options);
 
+        // Generate custom default task
+        $customContent = $this->addDefaultTask($customContent, $plugins);
+
         // Write file
-        $this->writeFile($customContent, 'bower.json');
+        $this->writeFile($customContent, $this->getPath());
     }
 
     /**
-     * Create a .bowerrc file
+     * Create default task line
      *
-     * @return void
+     * @param string $content
+     * @param array  $plugins
      */
-    public function createBowerRcFile()
+    protected function addDefaultTask($content, $plugins)
     {
-        $rawPath = __DIR__ . "/../templates/bowerrc.txt";
-        $rawContents = $this->filesystem->get($rawPath);
+        $pattern = "/{{tasks}}/i";
+        $task = "";
 
-        // Add user specified options
-        $customContent = $this->addOptions($rawContents, $this->options);
+        foreach ($plugins as $plugin) {
+            $task .= "'" . $plugin ."', ";
+        }
 
-        // Write file
-        $this->writeFile($customContent, '.bowerrc');
+        $content = preg_replace($pattern, $task, $content);
+
+        return $content;
     }
 
     /**
-     * Add the custom options to bower.json content
+     * Add the custom options to gruntfile.js content
      *
      * @param string $content
      * @param array  $plugins
@@ -94,9 +103,9 @@ class Bowerfile
             $pattern = '/{{' . $option . '}}/i';
             $config = $this->config->get('laravel-grunt::' . $option);
 
-            // If config item is an array, built a JSON style array string from it.
+            // If config item is an array, built a string from it.
             if (is_array($config)) {
-                $str = $this->buildJSONStringFromArray($config);
+                $str = $this->buildStringFromArray($config);
                 $content = preg_replace($pattern, $str, $content);
             } else {
                 $content = preg_replace($pattern, $config, $content);
@@ -107,7 +116,7 @@ class Bowerfile
     }
 
     /**
-     * Write contents to the bower.json
+     * Write contents to the gruntfile.js
      *
      * @param  string $content
      * @param  string $path
@@ -119,13 +128,13 @@ class Bowerfile
     }
 
     /**
-     * Get the path to the bower.json
+     * Get the path to the Gruntfile.js
      *
      * @return string
      */
     protected function getPath()
     {
-        return $this->path . '/bower.json';
+        return $this->path . '/gruntfile.js';
     }
 
     /**
@@ -134,14 +143,11 @@ class Bowerfile
      * @param  array  $array
      * @return string
      */
-    protected function buildJSONStringFromArray($array)
+    protected function buildStringFromArray($array)
     {
-        $str = '';
-        foreach ($array as $key => $value) {
-            $str .= '"' . $key . '": "' . $value .'",';
-        }
+        $str = "'" . implode("','", $array) . "'";
 
-        return rtrim($str, ",");
+        return $str;
     }
 
 }

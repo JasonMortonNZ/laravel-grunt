@@ -1,4 +1,6 @@
-<?php namespace JasonNZ\LaravelGrunt;
+<?php
+
+namespace Goez\LaravelGrunt;
 
 interface GeneratorInterface
 {

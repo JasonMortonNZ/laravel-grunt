@@ -1,9 +1,11 @@
-<?php namespace JasonNZ\LaravelGrunt\Bower;
+<?php
+
+namespace Goez\LaravelGrunt\Bower;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Config\Repository as Config;
-use JasonNZ\LaravelGrunt\Bower\Bowerfile;
-use JasonNZ\LaravelGrunt\GeneratorInterface;
+use Goez\LaravelGrunt\Bower\Bowerfile;
+use Goez\LaravelGrunt\GeneratorInterface;
 
 class BowerGenerator implements GeneratorInterface
 {
@@ -17,7 +19,7 @@ class BowerGenerator implements GeneratorInterface
     /**
      * GruntFile
      *
-     * @var JasonMortonNZ\LaravelGrunt\Bower\Bowerfile
+     * @var Goez\LaravelGrunt\Bower\Bowerfile
      */
     protected $bowerFile;
 
@@ -33,6 +35,7 @@ class BowerGenerator implements GeneratorInterface
      *
      * @param Filesystem $filesystem
      * @param Bowerfile  $bowerFile
+     * @param Config     $config
      */
     public function __construct(Filesystem $filesystem, Bowerfile $bowerFile, Config $config)
     {

@@ -1,8 +1,10 @@
-<?php namespace JasonNZ\LaravelGrunt\Commands;
+<?php
+
+namespace Goez\LaravelGrunt\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Config\Repository as Config;
-use JasonNZ\LaravelGrunt\GeneratorInterface;
+use Goez\LaravelGrunt\GeneratorInterface;
 
 class GruntSetupCommand extends Command
 {

@@ -1,4 +1,6 @@
-<?php namespace JasonNZ\LaravelGrunt\Commands;
+<?php
+
+namespace Goez\LaravelGrunt\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Config\Repository as Config;

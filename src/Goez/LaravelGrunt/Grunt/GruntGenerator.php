@@ -1,8 +1,10 @@
-<?php namespace JasonNZ\LaravelGrunt\Grunt;
+<?php
+
+namespace Goez\LaravelGrunt\Grunt;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Config\Repository as Config;
-use JasonNZ\LaravelGrunt\GeneratorInterface;
+use Goez\LaravelGrunt\GeneratorInterface;
 
 class GruntGenerator implements GeneratorInterface
 {
@@ -16,7 +18,7 @@ class GruntGenerator implements GeneratorInterface
     /**
      * Gruntfile
      *
-     * @var JasonMortonNZ\LaravelGrunt\Gruntfile
+     * @var Goez\LaravelGrunt\Gruntfile
      */
     protected $gruntfile;
 
