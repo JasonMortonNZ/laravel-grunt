@@ -1,8 +1,8 @@
 <?php namespace JasonNZ\LaravelGrunt;
 
-interface GeneratorInterface {
-
-	function generate();
-	function filesExist();
+interface GeneratorInterface
+{
+    public function generate();
+    public function filesExist();
 
 }
