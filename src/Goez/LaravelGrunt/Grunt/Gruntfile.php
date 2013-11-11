@@ -33,7 +33,10 @@ class Gruntfile
      *
      * @var array
      */
-    protected $options = array('assets_path', 'publish_path', 'css_path', 'css_files', 'js_path', 'js_files', 'less_path', 'less_file', 'sass_path', 'sass_file', 'stylus_path', 'stylus_file');
+    protected $options = array(
+        'assets_path',
+        'publish_path',
+    );
 
     /**
      * Constructor
@@ -76,6 +79,7 @@ class Gruntfile
      *
      * @param string $content
      * @param array  $plugins
+     * @return string
      */
     protected function addDefaultTask($content, $plugins)
     {
@@ -95,12 +99,13 @@ class Gruntfile
      * Add the custom options to gruntfile.js content
      *
      * @param string $content
-     * @param array  $plugins
+     * @param array  $options
+     * @return string
      */
     protected function addOptions($content, $options)
     {
         foreach ($options as $option) {
-            $pattern = '/{{' . $option . '}}/i';
+            $pattern = '/{{\s*' . $option . '\s*}}/i';
             $config = $this->config->get('laravel-grunt::' . $option);
 
             // If config item is an array, built a string from it.

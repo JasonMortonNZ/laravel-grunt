@@ -23,7 +23,7 @@ class GruntConfigCommand extends Command
 
     public function fire()
     {
-        $this->info('Copied Laravel-Grunt config file to: app/config/package/goez/laravel-grunt/src/config.php');
+        $this->info('Copied Laravel-Grunt config file to: app/config/package/goez/laravel-grunt/src/config/config.php');
         $this->call('config:publish', array('package' => 'goez/laravel-grunt'));
     }
 

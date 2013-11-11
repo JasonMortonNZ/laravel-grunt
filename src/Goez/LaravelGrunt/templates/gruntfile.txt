@@ -16,7 +16,7 @@ module.exports = function (grunt) {
         // configurable paths
         path: {
             app: '{{ assets_path }}',
-            dist: '{{ published_path }}'
+            dist: '{{ publish_path }}'
         },
         watch: {
             compass: {

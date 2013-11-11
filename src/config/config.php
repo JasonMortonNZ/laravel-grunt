@@ -23,5 +23,5 @@ return array(
     | sensible default, but feel free to update it.
     |
     */
-    'published_path' => 'public',
+    'publish_path' => 'public',
 );
