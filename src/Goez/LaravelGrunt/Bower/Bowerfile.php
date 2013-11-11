@@ -2,22 +2,22 @@
 
 namespace Goez\LaravelGrunt\Bower;
 
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Config\Repository as Config;
+use \Illuminate\Filesystem\Filesystem;
+use \Illuminate\Config\Repository as Config;
 
 class Bowerfile
 {
     /**
      * Filesystem Instance
      *
-     * @var Illuminate\Filesystem\Filesystem
+     * @var \Illuminate\Filesystem\Filesystem
      */
     protected $filesystem;
 
     /**
      * Config Instance
      *
-     * @var Illuminate\Config\Repository
+     * @var \Illuminate\Config\Repository
      */
     protected $config;
 
@@ -88,7 +88,8 @@ class Bowerfile
      * Add the custom options to bower.json content
      *
      * @param string $content
-     * @param array  $plugins
+     * @param array  $options
+     * @return string
      */
     protected function addOptions($content, $options)
     {
