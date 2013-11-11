@@ -3,6 +3,7 @@
     "description": "A Laravel 4 Grunt Workflow",
     "homepage": "https://github.com/JasonMortonNZ/laravel-grunt",
     "version": "0.0.1",
+    "repository": {},
     "author": {
         "name": "JasonMortonNZ",
         "url": "https://twitter.com/jasonmortonnz",
