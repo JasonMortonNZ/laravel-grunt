@@ -53,14 +53,14 @@ class Gruntfile
     }
 
     /**
-     * Create a custom gruntfile.js base upon users requirements
+     * Create a custom Gruntfile.js base upon users requirements
      *
      * @param  array $plugins
      * @return void
      */
     public function create(array $plugins)
     {
-        // Get raw gruntfile.js template (without custom options)
+        // Get raw Gruntfile.js template (without custom options)
         $rawPath = __DIR__ . '/../templates/gruntfile.txt';
         $rawContents = $this->filesystem->get($rawPath);
 
@@ -96,7 +96,7 @@ class Gruntfile
     }
 
     /**
-     * Add the custom options to gruntfile.js content
+     * Add the custom options to Gruntfile.js content
      *
      * @param  string $content
      * @param  array  $options
@@ -121,7 +121,7 @@ class Gruntfile
     }
 
     /**
-     * Write contents to the gruntfile.js
+     * Write contents to the Gruntfile.js
      *
      * @param  string $content
      * @param  string $path
@@ -139,7 +139,7 @@ class Gruntfile
      */
     protected function getPath()
     {
-        return $this->path . '/gruntfile.js';
+        return $this->path . '/Gruntfile.js';
     }
 
     /**

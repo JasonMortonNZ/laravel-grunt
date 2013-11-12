@@ -54,7 +54,7 @@ class GruntGenerator implements GeneratorInterface
         // Create .jshintrc file
         $this->createJsHintRcfile();
 
-        // Generate gruntfile.js
+        // Generate Gruntfile.js
         $this->createGruntfile($plugins);
 
         // Add node_modules to .gitignore
@@ -63,7 +63,7 @@ class GruntGenerator implements GeneratorInterface
     }
 
     /**
-     * Create a gruntfile.js file
+     * Create a Gruntfile.js file
      *
      * @param  array $plugins
      * @return void
@@ -126,13 +126,13 @@ class GruntGenerator implements GeneratorInterface
     }
 
     /**
-     * Check if gruntfile.js and package.json already exist
+     * Check if Gruntfile.js and package.json already exist
      *
      * @return boolean
      */
     public function filesExist()
     {
-        return ($this->filesystem->exists('gruntfile.js')
+        return ($this->filesystem->exists('Gruntfile.js')
             || $this->filesystem->exists('package.json'));
     }
 
@@ -141,7 +141,7 @@ class GruntGenerator implements GeneratorInterface
      */
     public function getFilenames()
     {
-        return array('gruntfile.js', 'package.json', '.jshintrc');
+        return array('Gruntfile.js', 'package.json', '.jshintrc');
     }
 
 }
