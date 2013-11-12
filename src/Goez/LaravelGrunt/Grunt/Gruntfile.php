@@ -77,8 +77,8 @@ class Gruntfile
     /**
      * Create default task line
      *
-     * @param string $content
-     * @param array  $plugins
+     * @param  string $content
+     * @param  array  $plugins
      * @return string
      */
     protected function addDefaultTask($content, $plugins)
@@ -98,8 +98,8 @@ class Gruntfile
     /**
      * Add the custom options to gruntfile.js content
      *
-     * @param string $content
-     * @param array  $options
+     * @param  string $content
+     * @param  array  $options
      * @return string
      */
     protected function addOptions($content, $options)

@@ -87,8 +87,8 @@ class Bowerfile
     /**
      * Add the custom options to bower.json content
      *
-     * @param string $content
-     * @param array  $options
+     * @param  string $content
+     * @param  array  $options
      * @return string
      */
     protected function addOptions($content, $options)
