@@ -30,6 +30,11 @@ class GruntGenerator implements GeneratorInterface
     protected $config;
 
     /**
+     * @var string
+     */
+    protected $assetsPath = '';
+
+    /**
      * Constructor
      *
      * @param Filesystem $filesystem
@@ -41,6 +46,7 @@ class GruntGenerator implements GeneratorInterface
         $this->filesystem = $filesystem;
         $this->gruntfile = $gruntfile;
         $this->config = $config;
+        $this->assetsPath = '/' . trim($this->config->get('laravel-grunt::assets_path'), '/');
     }
 
     public function generate($plugins = null)
@@ -57,9 +63,8 @@ class GruntGenerator implements GeneratorInterface
         // Generate Gruntfile.js
         $this->createGruntfile($plugins);
 
-        // Add node_modules to .gitignore
-        $nodeModulesPath = "/node_modules";
-        $this->addToGitingnore('.gitignore', $nodeModulesPath);
+        // Add folders to .gitignore
+        $this->processGitIgnore();
     }
 
     /**
@@ -104,7 +109,7 @@ class GruntGenerator implements GeneratorInterface
      */
     public function createAssetsFolder()
     {
-        $basePath = dirname(app_path()) . '/' . trim($this->config->get('laravel-grunt::assets_path'), '/');
+        $basePath = dirname(app_path()) . $this->assetsPath;
 
         $paths = array(
             $basePath,
@@ -121,17 +126,29 @@ class GruntGenerator implements GeneratorInterface
         }
     }
 
+    public function processGitIgnore()
+    {
+        $paths = array(
+            $this->assetsPath . '/vendor',
+            "/node_modules",
+        );
+
+        foreach ($paths as $path) {
+            $this->addToGitIgnore('.gitignore', $path);
+        }
+    }
+
     /**
      * Add node_modules to .gitignore
      *
      * @param string $path
      * @param string $folder
      */
-    public function addToGitingnore($path, $folder)
+    public function addToGitIgnore($path, $folder)
     {
         $lines = array_map('trim', file($path));
         if (!in_array(trim($folder), $lines)) {
-            $this->filesystem->append($path, $folder);
+            $this->filesystem->append($path, $folder . "\n");
         }
     }
 
