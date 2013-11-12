@@ -129,11 +129,9 @@ class GruntGenerator implements GeneratorInterface
      */
     public function filesExist()
     {
-        if ($this->filesystem->exists('gruntfile.js') || $this->filesystem->exists('package.json')) {
-            return true;
-        }
+        return ($this->filesystem->exists('gruntfile.js')
+            || $this->filesystem->exists('package.json'));
 
-        return false;
     }
 
 }
