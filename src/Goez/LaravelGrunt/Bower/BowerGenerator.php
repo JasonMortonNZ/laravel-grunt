@@ -30,6 +30,11 @@ class BowerGenerator implements GeneratorInterface
     protected $config;
 
     /**
+     * @var string
+     */
+    protected $assetsPath = '';
+
+    /**
      * Constructor
      *
      * @param Filesystem $filesystem
@@ -41,6 +46,7 @@ class BowerGenerator implements GeneratorInterface
         $this->filesystem = $filesystem;
         $this->bowerFile = $bowerFile;
         $this->config = $config;
+        $this->assetsPath = $this->config->get('laravel-grunt::assets_path');
     }
 
     public function generate()
@@ -82,7 +88,7 @@ class BowerGenerator implements GeneratorInterface
      */
     public function createVendorFolder()
     {
-        $path = $this->config->get('laravel-grunt::assets') . '/vendor';
+        $path = $this->assetsPath . '/vendor';
 
         if ( ! $this->filesystem->exists($path)) {
             $this->filesystem->makeDirectory($path, 0777, true);
@@ -96,11 +102,9 @@ class BowerGenerator implements GeneratorInterface
      */
     public function filesExist()
     {
-        if ($this->filesystem->exists($this->config->get('laravel-grunt::assets_path') . '/bower.json') || $this->filesystem->exists($this->config->get('laravel-grunt::assets_path') . '/.bowerrc')) {
-            return true;
-        }
+        return ($this->filesystem->exists($this->assetsPath . '/bower.json')
+            || $this->filesystem->exists($this->assetsPath . '/.bowerrc'));
 
-        return false;
     }
 
 }
