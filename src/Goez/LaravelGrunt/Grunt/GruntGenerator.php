@@ -106,7 +106,7 @@ class GruntGenerator implements GeneratorInterface
     {
         $path = $this->config->get('laravel-grunt::assets_path');
 
-        if ( ! $this->filesystem->exists($path)) {
+        if (!$this->filesystem->exists($path)) {
             $this->filesystem->makeDirectory($path, 0777, true);
         }
     }
