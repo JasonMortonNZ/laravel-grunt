@@ -20,7 +20,7 @@ class GruntSetupCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Generate a new Gruntfile.js';
+    protected $description = 'Generate metadata files for Grunt.';
 
     /**
      * Path to the assets folder
@@ -44,16 +44,21 @@ class GruntSetupCommand extends Command
     protected $generator;
 
     /**
+     * @var array
+     */
+    protected $generators = array();
+
+    /**
      * Constructor
      *
-     * @param GeneratorInterface $generator
-     * @param Config             $config
+     * @param array  $generators
+     * @param Config $config
      */
-    public function __construct(GeneratorInterface $generator, Config $config)
+    public function __construct($generators, Config $config)
     {
         parent::__construct();
 
-        $this->generator  = $generator;
+        $this->generators = $generators;
         $this->assetsPath = $config->get('laravel-grunt::assets_path');
     }
 
@@ -65,15 +70,17 @@ class GruntSetupCommand extends Command
     public function fire()
     {
         // If user has both node and npm installed continue
-        if (! $this->hasNode() && ! $this->hasNpm()) {
+        if (!$this->hasNode() && !$this->hasNpm() && !$this->hasBower()) {
             $this->error('It appears that either node or npm is not installed. Please install and try again!');
-            exit();
+
+            return;
         }
 
         // Check if a gruntfile.js or package.json already exists
-        if ($this->generator->filesExist()) {
-            if (! $this->askContinue()) {
-                exit();
+        foreach ($this->generators as $generator)
+        if ($generator->filesExist()) {
+            if (! $this->askContinue($generator)) {
+                return;
             }
         }
 
@@ -82,10 +89,14 @@ class GruntSetupCommand extends Command
         $this->askQuestions();
 
         // Create package.json file & generate custom gruntfile.js
-        $this->generator->generate($this->plugins);
-        $this->info('package.json & gruntfile.js successfully created!');
+        foreach ($this->generators as $generator) {
+            $generator->generate($this->plugins);
+        }
+        $this->info('Metadata files successfully created!');
 
-        // Install / update modules, different command for each os type
+        $this->info('Install bower dependences...');
+        $this->installBowerDependences();
+
         $this->info('Installing / updating required grunt plugins...');
         $this->installGruntPlugins();
 
@@ -94,15 +105,17 @@ class GruntSetupCommand extends Command
     /**
      * Files already exist, do you want to continue?
      *
+     * @param  GeneratorInterface $generator
      * @return boolean
      */
-    protected function askContinue()
+    protected function askContinue(GeneratorInterface $generator)
     {
-        if ($this->confirm('A gruntfile.js or package.json file already exist and will be replaced. Do you want to continue? [yes|no]', false)) {
-            return true;
-        } else {
-            return false;
-        }
+        $filenames = $generator->getFilenames();
+
+        return ($this->confirm(
+            'A ' . implode(' or ', $filenames) .
+            ' file already exist and will be replaced.' .
+            ' Do you want to continue? [y|n]', false));
     }
 
     /**
@@ -123,7 +136,7 @@ class GruntSetupCommand extends Command
      */
     protected function wantPreprocessing()
     {
-        if ($this->confirm('Do you require CSS preprocessing? [yes|no]', false)) {
+        if ($this->confirm('Do you require CSS preprocessing? [y|n]', false)) {
             // Get answer from user
             $preprocessor = strtolower($this->ask('Which CSS preprocessor do you require? [less|sass|stylus]'));
 
@@ -160,13 +173,26 @@ class GruntSetupCommand extends Command
         return starts_with($npm, '1.');
     }
 
+    /**
+     * Check if user has bower installed
+     *
+     * @return boolean
+     */
+    protected function hasBower()
+    {
+        $bower = shell_exec('bower -v');
+
+        return starts_with($bower, '1');
+    }
+
+    protected function installBowerDependences()
+    {
+        shell_exec('bower install');
+    }
+
     protected function installGruntPlugins()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            shell_exec('npm install');
-        } else {
-            shell_exec('sudo npm install');
-        }
+        shell_exec('npm install');
     }
 
 }

@@ -51,10 +51,13 @@ class LaravelGruntServiceProvider extends ServiceProvider
     public function registerGruntSetupCommand()
     {
         $this->app['grunt.setup'] = $this->app->share(function($app) {
+
+            $bowerFile = new Bowerfile($app['files'], $app['config']);
+            $bowerGenerator = new BowerGenerator($app['files'], $bowerFile, $app['config']);
             $gruntFile = new Gruntfile($app['files'], $app['config']);
             $gruntGenerator = new GruntGenerator($app['files'], $gruntFile, $app['config']);
 
-            return new GruntSetupCommand($gruntGenerator, $app['config']);
+            return new GruntSetupCommand(array($bowerGenerator, $gruntGenerator), $app['config']);
         });
     }
 
