@@ -85,7 +85,7 @@ class GruntGenerator implements GeneratorInterface
      */
     public function createPackagefile()
     {
-        $path = __DIR__ . "/../templates/packagefile.txt";
+        $path = __DIR__ . "/../templates/packagejson.txt";
 
         // Copy content into new file called package.json in project root.
         $this->filesystem->put('package.json', $this->filesystem->get($path));
