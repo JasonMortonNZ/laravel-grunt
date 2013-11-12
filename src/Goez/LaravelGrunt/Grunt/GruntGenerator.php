@@ -104,10 +104,20 @@ class GruntGenerator implements GeneratorInterface
      */
     public function createAssetsFolder()
     {
-        $path = $this->config->get('laravel-grunt::assets_path');
+        $basePath = dirname(app_path()) . '/' . trim($this->config->get('laravel-grunt::assets_path'), '/');
 
-        if (!$this->filesystem->exists($path)) {
-            $this->filesystem->makeDirectory($path, 0777, true);
+        $paths = array(
+            $basePath,
+            $basePath . '/scripts',
+            $basePath . '/styles',
+            $basePath . '/images',
+            $basePath . '/vendor',
+        );
+
+        foreach ($paths as $path) {
+            if (!$this->filesystem->exists($path)) {
+                $this->filesystem->makeDirectory($path, 0777, true);
+            }
         }
     }
 
