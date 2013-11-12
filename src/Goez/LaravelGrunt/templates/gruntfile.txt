@@ -20,7 +20,7 @@ module.exports = function (grunt) {
         },
         watch: {
             compass: {
-                files: ['<%= path.app %>/styles/{,*/}*.{scss,styles}'],
+                files: ['<%= path.app %>/styles/{,*/}*.{sass,scss,styles}'],
                 tasks: ['compass:server', 'autoprefixer']
             },
             styles: {
@@ -111,7 +111,7 @@ module.exports = function (grunt) {
                 imagesDir: '<%= path.app %>/images',
                 javascriptsDir: '<%= path.app %>/scripts',
                 fontsDir: '<%= path.app %>/styles/fonts',
-                importPath: '<%= path.app %>/bower_components',
+                importPath: '<%= path.app %>/vendor',
                 httpImagesPath: '/images',
                 httpGeneratedImagesPath: '/images/generated',
                 httpFontsPath: '/styles/fonts',
@@ -261,7 +261,7 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/{,*/}*.*',
-                        'bower_components/styles-bootstrap/fonts/*.*'
+                        'vendor/styles-bootstrap/fonts/*.*'
                     ]
                 }]
             },
@@ -274,8 +274,8 @@ module.exports = function (grunt) {
             }
         },
         modernizr: {
-            devFile: '<%= path.app %>/bower_components/modernizr/modernizr.js',
-            outputFile: '<%= path.dist %>/bower_components/modernizr/modernizr.js',
+            devFile: '<%= path.app %>/vendor/modernizr/modernizr.js',
+            outputFile: '<%= path.dist %>/vendor/modernizr/modernizr.js',
             files: [
                 '<%= path.dist %>/scripts/{,*/}*.js',
                 '<%= path.dist %>/styles/{,*/}*.css',
