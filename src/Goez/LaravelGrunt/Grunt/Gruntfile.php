@@ -10,14 +10,14 @@ class Gruntfile
     /**
      * Filesystem Instance
      *
-     * @var Illuminate\Filesystem\Filesystem
+     * @var \Illuminate\Filesystem\Filesystem
      */
     protected $filesystem;
 
     /**
      * Config Instance
      *
-     * @var Illuminate\Config\Repository
+     * @var \Illuminate\Config\Repository
      */
     protected $config;
 
