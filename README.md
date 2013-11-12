@@ -15,27 +15,27 @@ Next, add the following line to the end of you `app/config.php` "providers array
 
 `'Goez\LaravelGrunt\LaravelGruntServiceProvider',`
 
-Finally, run the following command to add the configuration file to your `app/config/packages` directory:
+Then run the following command to add the configuration file to your `app/config/packages` directory:
 
 `php artisan grunt:config`
-
-## Configuration
 
 You can configure the path of assets and published files.
 This configuration file is located in your project's config directory, as below:
 
 	app/config/packages/goez/laravel-grunt/config.php
 
-**Note:** You can edit the `package.json` and `grunfile.js` directly when then are generated.
+**Note:** You can edit the `package.json`, `bower.json`, `Grunfile.js` directly when then are generated.
 
-## How to use?
+Finally, run the following command to generate all metadata files and install packages in your app:
 
-There are no more commands of this package, just use original commands of Grunt and Bower:
+`php artisan grunt:setup`
+
+Now you can use `bower` and `grunt` command to manage your assets.
 
 * `bower` to list all commands of Bower.
 * `grunt --help` to list all commands of Grunt.
 
-## Bugs Report 
+## Bugs Report
 
 Please report the bugs that you found to [Issus page](https://github.com/jaceju/laravel-grunt/issues) of this package.
 
