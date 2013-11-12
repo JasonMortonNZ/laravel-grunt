@@ -131,7 +131,14 @@ class GruntGenerator implements GeneratorInterface
     {
         return ($this->filesystem->exists('gruntfile.js')
             || $this->filesystem->exists('package.json'));
+    }
 
+    /**
+     * @return array
+     */
+    public function getFilenames()
+    {
+        return array('gruntfile.js', 'package.json', '.jshintrc');
     }
 
 }

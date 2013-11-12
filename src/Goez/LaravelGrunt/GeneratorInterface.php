@@ -6,5 +6,5 @@ interface GeneratorInterface
 {
     public function generate();
     public function filesExist();
-
+    public function getFilenames();
 }

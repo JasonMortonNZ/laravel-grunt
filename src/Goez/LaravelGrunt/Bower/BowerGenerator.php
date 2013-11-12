@@ -104,7 +104,14 @@ class BowerGenerator implements GeneratorInterface
     {
         return ($this->filesystem->exists($this->assetsPath . '/bower.json')
             || $this->filesystem->exists($this->assetsPath . '/.bowerrc'));
+    }
 
+    /**
+     * @return array
+     */
+    public function getFilenames()
+    {
+        return array('bower.json', '.bowerrc');
     }
 
 }
