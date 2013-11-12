@@ -11,21 +11,21 @@ class GruntGenerator implements GeneratorInterface
     /**
      * Filesystem
      *
-     * @var Illuminate\Filesystem
+     * @var \Illuminate\Filesystem\FileSystem
      */
     protected $filesystem;
 
     /**
      * Gruntfile
      *
-     * @var Goez\LaravelGrunt\Gruntfile
+     * @var \Goez\LaravelGrunt\Grunt\Gruntfile
      */
     protected $gruntfile;
 
     /**
      * Config Instance
      *
-     * @var Illuminate\Config\Repository
+     * @var \Illuminate\Config\Repository
      */
     protected $config;
 
