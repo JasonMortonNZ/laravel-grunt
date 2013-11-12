@@ -147,9 +147,12 @@ class GruntGenerator implements GeneratorInterface
     public function addToGitIgnore($path, $folder)
     {
         $lines = array_map('trim', file($path));
-        if (!in_array(trim($folder), $lines)) {
-            $this->filesystem->append($path, $folder . "\n");
+        $folder = trim($folder);
+        if (!in_array($folder, $lines)) {
+            $lines[] = $folder;
         }
+        $lines = array_unique($lines);
+        $this->filesystem->put($path, implode("\n", $lines) . "\n");
     }
 
     /**
