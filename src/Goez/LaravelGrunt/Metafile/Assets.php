@@ -8,14 +8,25 @@ class Assets extends Metafile
 {
 
     /**
+     * @var string
+     */
+    protected $assetsPath = '';
+
+    /**
+     * @return void
+     */
+    public function init()
+    {
+        $this->assetsPath = $this->config->get('laravel-grunt::assets_path');
+    }
+
+    /**
      * @return array
      */
     public function fileNames()
     {
-        $assetsPath = static::transPath($this->config->get('laravel-grunt:assets_path'));
-
         return array(
-            $assetsPath . '/index.html',
+            $this->assetsPath . '/index.html',
         );
     }
 
@@ -24,13 +35,12 @@ class Assets extends Metafile
      */
     public function manifest()
     {
-        $assetsPath = static::transPath($this->config->get('laravel-grunt:assets_path'));
 
         return array(
-            $assetsPath . '/images' => static::DIR,
-            $assetsPath . '/scripts' => static::DIR,
-            $assetsPath . '/styles' => static::DIR,
-            $assetsPath . '/index.html' => static::TPL . ':assets/index.html.txt',
+            $this->assetsPath . '/images' => static::DIR,
+            $this->assetsPath . '/scripts' => static::DIR,
+            $this->assetsPath . '/styles' => static::DIR,
+            $this->assetsPath . '/index.html' => static::TPL . ':assets/index.html.txt',
         );
     }
 

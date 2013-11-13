@@ -20,6 +20,14 @@ abstract class Metafile
     public function __construct(Config $config)
     {
         $this->config = $config;
+        $this->init();
+    }
+
+    /**
+     * @return void
+     */
+    public function init()
+    {
     }
 
     /**
