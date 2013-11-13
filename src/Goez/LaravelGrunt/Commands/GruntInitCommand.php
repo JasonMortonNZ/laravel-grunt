@@ -71,12 +71,12 @@ class GruntInitCommand extends Command
     {
         $this->initMetafiles();
 
-        $this->info('Checking requires...');
+        $this->info('Checking requirements...');
 
         foreach ($this->metaFiles as $metaFile) {
             /* @var $metaFile \Goez\LaravelGrunt\Metafile */
-            $requires = $metaFile->requires();
-            foreach ($requires as $target => $c) {
+            $requirements = $metaFile->requirements();
+            foreach ($requirements as $target => $c) {
                 $result = $this->checkRequire($c['command'], $c['check']);
 
                 $message = "$target ... " . ($result ? "yes" : "no");
@@ -89,15 +89,31 @@ class GruntInitCommand extends Command
             }
         }
 
+        $this->info('Overwrite files?');
 
+        $rootPath = dirname(app_path());
 
-//        // If user has both node and npm installed continue
-//        if (!$this->hasNode() && !$this->hasNpm() && !$this->hasBower()) {
-//            $this->error('It appears that either node or npm is not installed. Please install and try again!');
-//
-//            return;
-//        }
-//
+        foreach ($this->metaFiles as $metaFile) {
+            /* @var $metaFile \Goez\LaravelGrunt\Metafile */
+            $files = $metaFile->fileNames();
+
+            foreach ($files as $file) {
+                // $entry = $rootPath . Metafile::transPath($file);
+
+                if ($this->fs->exists($file)) {
+                    $message = "Replace file '$file'? [y|n]";
+
+                    if ($this->confirm($message, false)) {
+                        $this->info("'$file' be replaced.");
+                    }
+                }
+
+            }
+
+        }
+
+        $this->info('Generating directories and files...');
+
 //        // Check if a gruntfile.js or package.json already exists
 //        foreach ($this->generators as $generator)
 //        if ($generator->filesExist()) {

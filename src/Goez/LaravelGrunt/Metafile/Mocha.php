@@ -9,7 +9,7 @@ class Mocha extends Metafile
     /**
      * @return array
      */
-    public function requires()
+    public function requirements()
     {
         return array();
     }
