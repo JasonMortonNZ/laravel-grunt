@@ -2,6 +2,7 @@
 
 namespace Goez\LaravelGrunt\Commands;
 
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Console\Command;
 use Illuminate\Config\Repository as Config;
 use Goez\LaravelGrunt\Metafile;
@@ -23,6 +24,11 @@ class GruntInitCommand extends Command
     protected $description = 'Generate directories and files for Grunt.';
 
     /**
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected $fs = null;
+
+    /**
      * @var \Illuminate\Config\Repository
      */
     protected $config = null;
@@ -35,10 +41,12 @@ class GruntInitCommand extends Command
     /**
      * Constructor
      *
-     * @param Config $config
+     * @param \Illuminate\Filesystem\Filesystem $fs
+     * @param \Illuminate\Config\Repository     $config
      */
-    public function __construct(Config $config)
+    public function __construct(Filesystem $fs, Config $config)
     {
+        $this->fs = $fs;
         $this->config = $config;
         parent::__construct();
     }

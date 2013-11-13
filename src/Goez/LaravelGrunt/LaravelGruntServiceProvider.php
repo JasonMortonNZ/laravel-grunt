@@ -67,7 +67,7 @@ class LaravelGruntServiceProvider extends ServiceProvider
     {
         $this->app['grunt.init'] = $this->app->share(function ($app) {
 
-            return new GruntInitCommand($app['config']);
+            return new GruntInitCommand($app['files'], $app['config']);
 
         });
     }
