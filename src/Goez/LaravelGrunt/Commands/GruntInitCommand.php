@@ -89,30 +89,29 @@ class GruntInitCommand extends Command
             }
         }
 
-        $this->info('Overwrite files?');
-
-        $rootPath = dirname(app_path());
+        $this->info('Generating directories and files...');
 
         foreach ($this->metaFiles as $metaFile) {
             /* @var $metaFile \Goez\LaravelGrunt\Metafile */
+            $manifest = $metaFile->manifest();
             $files = $metaFile->fileNames();
 
-            foreach ($files as $file) {
-                // $entry = $rootPath . Metafile::transPath($file);
+            foreach ($manifest as $name => $type) {
 
-                if ($this->fs->exists($file)) {
-                    $message = "Replace file '$file'? [y|n]";
+                if ($this->fs->exists($name)) {
+                    if (in_array($name, $files)) {
+                        $message = "Overwrite file '$name'? [y|N]";
 
-                    if ($this->confirm($message, false)) {
-                        $this->info("'$file' be replaced.");
+                        if ($this->confirm($message, false)) {
+                            $this->generate($name, $type);
+                        }
                     }
+                } else {
+                    $this->generate($name, $type);
                 }
-
             }
-
         }
 
-        $this->info('Generating directories and files...');
 
 //        // Check if a gruntfile.js or package.json already exists
 //        foreach ($this->generators as $generator)
@@ -144,6 +143,60 @@ class GruntInitCommand extends Command
     {
         $result = shell_exec($command);
         return starts_with($result, $check);
+    }
+
+    protected function generate($name, $type)
+    {
+        static $templateFolderPath = null;
+        static $basePath = null;
+        static $options = null;
+
+        if (null === $templateFolderPath) {
+            $templateFolderPath = dirname(__DIR__) . '/templates/';
+        }
+
+        if (null === $basePath) {
+            $basePath = dirname(app_path());
+        }
+
+        if (null === $options) {
+            $options = $this->config->get('laravel-grunt::config');
+        }
+
+        $path = $basePath . '/' . $name;
+        $this->info($path);
+
+        if ($type === Metafile::DIR) {
+            if (!$this->fs->exists($path)) {
+                $this->fs->makeDirectory($path, 0777, true);
+            }
+        } else {
+            list(, $template) = explode(':', $type);
+            $templatePath = $templateFolderPath . $template;
+            $this->info($templatePath);
+
+            $content = $this->fs->get($templatePath);
+            $content = $this->addOptions($content, $options);
+            $this->fs->put($path, $content);
+        }
+    }
+
+
+    /**
+     * Add the custom options to content
+     *
+     * @param  string $content
+     * @param  array  $options
+     * @return string
+     */
+    protected function addOptions($content, $options)
+    {
+        foreach ($options as $option => $value) {
+            $pattern = '/{{\s*' . $option . '\s*}}/i';
+            $content = preg_replace($pattern, $value, $content);
+        }
+
+        return $content;
     }
 
 //    /**
