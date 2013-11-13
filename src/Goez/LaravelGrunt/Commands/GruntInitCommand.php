@@ -112,6 +112,17 @@ class GruntInitCommand extends Command
             }
         }
 
+        $this->info('Installing packages...');
+
+        foreach ($this->metaFiles as $metaFile) {
+            /* @var $metaFile \Goez\LaravelGrunt\Metafile */
+
+            $commands = $metaFile->postCommands();
+
+            foreach ($commands as $command) {
+                shell_exec($command);
+            }
+        }
 
 //        // Check if a gruntfile.js or package.json already exists
 //        foreach ($this->generators as $generator)
