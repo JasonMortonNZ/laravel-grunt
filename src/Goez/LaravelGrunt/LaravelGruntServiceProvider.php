@@ -2,6 +2,7 @@
 
 namespace Goez\LaravelGrunt;
 
+use Goez\LaravelGrunt\Commands\GruntInitCommand;
 use Illuminate\Support\ServiceProvider;
 use Goez\LaravelGrunt\Grunt\Gruntfile;
 use Goez\LaravelGrunt\Grunt\GruntGenerator;
@@ -28,6 +29,7 @@ class LaravelGruntServiceProvider extends ServiceProvider
     {
         $this->registerGruntConfigCommand();
         $this->registerGruntSetupCommand();
+        $this->registerGruntInitCommand();
         $this->registerCommands();
     }
 
@@ -61,11 +63,21 @@ class LaravelGruntServiceProvider extends ServiceProvider
         });
     }
 
+    public function registerGruntInitCommand()
+    {
+        $this->app['grunt.init'] = $this->app->share(function ($app) {
+
+            return new GruntInitCommand($app['config']);
+
+        });
+    }
+
     public function registerCommands()
     {
         $this->commands(
             'grunt.config',
-            'grunt.setup'
+            'grunt.setup',
+            'grunt.init'
         );
     }
 
