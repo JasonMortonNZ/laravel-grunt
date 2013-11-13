@@ -77,7 +77,7 @@ class GruntInitCommand extends Command
             /* @var $metaFile \Goez\LaravelGrunt\Metafile */
             $requirements = $metaFile->requirements();
             foreach ($requirements as $target => $c) {
-                $result = $this->checkRequire($c['command'], $c['check']);
+                $result = $this->checkRequirement($c['command'], $c['check']);
 
                 $message = "$target ... " . ($result ? "yes" : "no");
                 $this->info($message);
@@ -140,7 +140,7 @@ class GruntInitCommand extends Command
 
     }
 
-    protected function checkRequire($command, $check)
+    protected function checkRequirement($command, $check)
     {
         $result = shell_exec($command);
         return starts_with($result, $check);
