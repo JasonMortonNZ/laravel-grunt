@@ -59,6 +59,7 @@ class GruntInitCommand extends Command
             new Metafile\Jshint($this->config),
             new Metafile\Mocha($this->config),
             new Metafile\Assets($this->config),
+            new Metafile\Requirejs($this->config),
         );
     }
 
