@@ -40,6 +40,7 @@ class Assets extends Metafile
             $this->assetsPath . '/images' => static::DIR,
             $this->assetsPath . '/scripts' => static::DIR,
             $this->assetsPath . '/styles' => static::DIR,
+            $this->assetsPath . '/styles/main.scss' => static::TPL . ':assets/main.scss.txt',
             $this->assetsPath . '/index.html' => static::TPL . ':assets/index.html.txt',
         );
     }
