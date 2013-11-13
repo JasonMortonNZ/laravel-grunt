@@ -33,6 +33,19 @@ class Bower extends Metafile
     /**
      * @return array
      */
+    public function ignoreFiles()
+    {
+        $assetsPath = $this->config->get('laravel-grunt::assets_path');
+
+        return array(
+            "/$assetsPath/vendor",
+        );
+
+    }
+
+    /**
+     * @return array
+     */
     public function manifest()
     {
         return array(

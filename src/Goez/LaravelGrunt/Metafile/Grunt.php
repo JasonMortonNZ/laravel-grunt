@@ -38,6 +38,16 @@ class Grunt extends Metafile
     /**
      * @return array
      */
+    public function ignoreFiles()
+    {
+        return array(
+            '/node_modules',
+        );
+    }
+
+    /**
+     * @return array
+     */
     public function manifest()
     {
         return array(

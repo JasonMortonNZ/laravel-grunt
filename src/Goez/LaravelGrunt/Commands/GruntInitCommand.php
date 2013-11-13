@@ -115,6 +115,7 @@ class GruntInitCommand extends Command
 
         $this->info('Installing packages...');
 
+        $ignoreFilePath = dirname(app_path()) . '/.gitignore';
         foreach ($this->metaFiles as $metaFile) {
             /* @var $metaFile \Goez\LaravelGrunt\Metafile */
 
@@ -123,7 +124,14 @@ class GruntInitCommand extends Command
             foreach ($commands as $command) {
                 shell_exec($command);
             }
+
+            $ignoreFiles = $metaFile->ignoreFiles();
+
+            foreach ($ignoreFiles as $file) {
+                $this->addToGitIgnore($ignoreFilePath, $file);
+            }
         }
+
 
     }
 
@@ -133,6 +141,10 @@ class GruntInitCommand extends Command
         return starts_with($result, $check);
     }
 
+    /**
+     * @param string $name
+     * @param string $type
+     */
     protected function generate($name, $type)
     {
         static $templateFolderPath = null;
@@ -184,6 +196,23 @@ class GruntInitCommand extends Command
         }
 
         return $content;
+    }
+
+    /**
+     * Add node_modules to .gitignore
+     *
+     * @param string $path
+     * @param string $entry
+     */
+    public function addToGitIgnore($path, $entry)
+    {
+        $lines = array_map('trim', file($path));
+        $entry = trim($entry);
+        if (!in_array($entry, $lines)) {
+            $lines[] = $entry;
+        }
+        $lines = array_unique($lines);
+        $this->fs->put($path, implode("\n", $lines) . "\n");
     }
 
 }

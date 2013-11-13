@@ -58,6 +58,14 @@ abstract class Metafile
     /**
      * @return array
      */
+    public function ignoreFiles()
+    {
+        return array();
+    }
+
+    /**
+     * @return array
+     */
     public function preCommands()
     {
         return array();

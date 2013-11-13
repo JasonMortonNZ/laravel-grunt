@@ -33,6 +33,18 @@ class Assets extends Metafile
     /**
      * @return array
      */
+    public function ignoreFiles()
+    {
+        return array(
+            '/.sass-cache',
+            '/.tmp',
+            '/public/assets',
+        );
+    }
+
+    /**
+     * @return array
+     */
     public function manifest()
     {
 
