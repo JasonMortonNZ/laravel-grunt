@@ -33,14 +33,6 @@ class Bower extends Metafile
     /**
      * @return array
      */
-    public function preCommands()
-    {
-        return array();
-    }
-
-    /**
-     * @return array
-     */
     public function manifest()
     {
         return array(

@@ -19,7 +19,9 @@ class Jshint extends Metafile
      */
     public function fileNames()
     {
-        return array();
+        return array(
+            '.jshintrc',
+        );
     }
 
     /**
@@ -35,7 +37,9 @@ class Jshint extends Metafile
      */
     public function manifest()
     {
-        return array();
+        return array(
+            '.jshintrc' => static::TPL . ':jshint/jshintrc.txt',
+        );
     }
 
     /**

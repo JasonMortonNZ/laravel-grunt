@@ -6,28 +6,17 @@ use Goez\LaravelGrunt\Metafile;
 
 class Assets extends Metafile
 {
-    /**
-     * @return array
-     */
-    public function requires()
-    {
-        return array();
-    }
 
     /**
      * @return array
      */
     public function fileNames()
     {
-        return array();
-    }
+        $assetsPath = static::transPath($this->config->get('laravel-grunt:assets_path'));
 
-    /**
-     * @return array
-     */
-    public function preCommands()
-    {
-        return array();
+        return array(
+            $assetsPath . '/index.html',
+        );
     }
 
     /**
@@ -45,11 +34,4 @@ class Assets extends Metafile
         );
     }
 
-    /**
-     * @return array
-     */
-    public function postCommands()
-    {
-        return array();
-    }
 }
