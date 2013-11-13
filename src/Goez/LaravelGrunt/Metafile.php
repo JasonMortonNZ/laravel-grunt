@@ -34,7 +34,7 @@ abstract class Metafile
     /**
      * @return array
      */
-    public function checkEnv()
+    public function requires()
     {
         return array();
     }
@@ -42,7 +42,7 @@ abstract class Metafile
     /**
      * @return array
      */
-    public function requires()
+    public function fileNames()
     {
         return array();
     }
