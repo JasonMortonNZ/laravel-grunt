@@ -35,6 +35,18 @@ Now you can use `bower` and `grunt` command to manage your assets.
 * `bower` to list all commands of Bower.
 * `grunt --help` to list all commands of Grunt.
 
+## Assets in view template
+
+You can use the 'grunt_asset' helper to get asset url. Here are examples on blade template:
+
+    <link rel="stylesheet" href="{{ grunt_asset('styles/hello.css') }}"/>
+    <script src="{{ grunt_asset('styles/hello.css') }}"></script>
+
+Or use methods of `HTML` class:
+
+    {{ HTML::style(grunt_asset('scripts/hello.js')) }}
+    {{ HTML::script(grunt_asset('scripts/hello.js')) }}
+
 ## Bugs Report
 
 Please report the bugs that you found to [Issus page](https://github.com/jaceju/laravel-grunt/issues) of this package.
