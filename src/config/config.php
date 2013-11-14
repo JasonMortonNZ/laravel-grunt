@@ -31,6 +31,7 @@ return array(
     |--------------------------------------------------------------------------
     |
     | Same of 'dist_path' in production mode.
+    | ** Don't change this unless you changed 'dist_path'!!
     |
     */
     'publish_path' => 'public/assets',

@@ -27,7 +27,7 @@ class Assets extends Metafile
     {
         return array(
             '/.sass-cache',
-            '/.tmp',
+            '/public.tmp',
             '/public/assets',
         );
     }

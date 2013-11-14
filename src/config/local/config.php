@@ -2,6 +2,15 @@
 
 return array(
 
-    'publish_path' => '.tmp',
+    /*
+    |--------------------------------------------------------------------------
+    | Published Assets Folder Path
+    |--------------------------------------------------------------------------
+    |
+    | Use of 'public/.tmp' in development mode.
+    | ** Don't change this!!
+    |
+    */
+    'publish_path' => 'public/.tmp',
 
 );
