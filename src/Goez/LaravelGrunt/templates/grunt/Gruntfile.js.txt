@@ -16,8 +16,7 @@ module.exports = function (grunt) {
         // configurable paths
         yeoman: {
             app: '{{ assets_path }}',
-            dist: '{{ dist_path }}',
-            tmp: 'public/.tmp'
+            dist: '{{ dist_path }}'
         },
         watch: {
             coffee: {
@@ -195,6 +194,12 @@ module.exports = function (grunt) {
                 }
             }
         },
+        useminPrepare: {
+            options: {
+                dest: '<%= yeoman.dist %>'
+            },
+            html: '<%= yeoman.app %>/index.html'
+        },
         imagemin: {
             dist: {
                 files: [{
@@ -340,6 +345,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
         'requirejs',
