@@ -163,8 +163,9 @@ class GruntSetupCommand extends Command
             $options = $this->config->get('laravel-grunt::config');
         }
 
+        $this->info("Generating '$name'...");
+
         $path = $basePath . '/' . $name;
-        $this->info($path);
 
         if ($type === Metafile::DIR) {
             if (!$this->fs->exists($path)) {
@@ -173,7 +174,6 @@ class GruntSetupCommand extends Command
         } else {
             list(, $template) = explode(':', $type);
             $templatePath = $templateFolderPath . $template;
-            $this->info($templatePath);
 
             $content = $this->fs->get($templatePath);
             $content = $this->addOptions($content, $options);
