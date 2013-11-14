@@ -11,6 +11,6 @@ return array(
     | ** Don't change this!!
     |
     */
-    'publish_path' => 'public/.tmp',
+    'publish_path' => '.tmp',
 
 );

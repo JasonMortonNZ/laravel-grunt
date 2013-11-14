@@ -34,5 +34,5 @@ return array(
     | ** Don't change this unless you changed 'dist_path'!!
     |
     */
-    'publish_path' => 'public/assets',
+    'publish_path' => 'assets',
 );
