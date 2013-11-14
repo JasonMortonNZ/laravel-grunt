@@ -1,3 +1,0 @@
-{
-    "directory": "{{ assets_path }}/vendor"
-}
