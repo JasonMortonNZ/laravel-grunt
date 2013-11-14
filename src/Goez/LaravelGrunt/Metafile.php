@@ -31,7 +31,7 @@ abstract class Metafile
     }
 
     /**
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     public static function transPath($path)

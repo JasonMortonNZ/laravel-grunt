@@ -105,21 +105,24 @@ class GruntSetupCommand extends Command
 
                 if (!$result) {
                     $this->error("$target is not installed.");
+
                     return false;
                 }
             }
         }
+
         return true;
     }
 
     /**
-     * @param string $command
-     * @param string $check
+     * @param  string $command
+     * @param  string $check
      * @return bool
      */
     protected function checkRequirement($command, $check)
     {
         $result = shell_exec($command);
+
         return starts_with($result, $check);
     }
 
