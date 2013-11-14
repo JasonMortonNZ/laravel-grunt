@@ -24,7 +24,7 @@ This configuration file is located in your project's config directory, as below:
 
 	app/config/packages/goez/laravel-grunt/config.php
 
-**Note:** You can edit the `package.json`, `bower.json`, `Grunfile.js` directly after then are generated.
+**Note:** You can edit the `package.json`, `bower.json`, `Grunfile.js` directly after they are generated.
 
 Finally, run the following command to generate all metadata files and install packages in your app:
 
