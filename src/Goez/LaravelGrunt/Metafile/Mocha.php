@@ -9,30 +9,6 @@ class Mocha extends Metafile
     /**
      * @return array
      */
-    public function requirements()
-    {
-        return array();
-    }
-
-    /**
-     * @return array
-     */
-    public function fileNames()
-    {
-        return array();
-    }
-
-    /**
-     * @return array
-     */
-    public function preCommands()
-    {
-        return array();
-    }
-
-    /**
-     * @return array
-     */
     public function manifest()
     {
         return array(
@@ -47,13 +23,5 @@ class Mocha extends Metafile
             'test/spec' => static::DIR,
             'test/spec/test.js' => static::TPL . ':mocha/spec/test.js.txt',
         );
-    }
-
-    /**
-     * @return array
-     */
-    public function postCommands()
-    {
-        return array();
     }
 }

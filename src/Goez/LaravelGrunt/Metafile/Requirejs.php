@@ -23,14 +23,6 @@ class Requirejs extends Metafile
     /**
      * @return array
      */
-    public function fileNames()
-    {
-        return array();
-    }
-
-    /**
-     * @return array
-     */
     public function manifest()
     {
         return array(
@@ -40,11 +32,4 @@ class Requirejs extends Metafile
         );
     }
 
-    /**
-     * @return array
-     */
-    public function postCommands()
-    {
-        return array();
-    }
 }

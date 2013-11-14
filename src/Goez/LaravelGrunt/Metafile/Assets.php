@@ -23,16 +23,6 @@ class Assets extends Metafile
     /**
      * @return array
      */
-    public function fileNames()
-    {
-        return array(
-            $this->assetsPath . '/index.html',
-        );
-    }
-
-    /**
-     * @return array
-     */
     public function ignoreFiles()
     {
         return array(
@@ -47,7 +37,6 @@ class Assets extends Metafile
      */
     public function manifest()
     {
-
         return array(
             $this->assetsPath . '/images' => static::DIR,
             $this->assetsPath . '/scripts' => static::DIR,

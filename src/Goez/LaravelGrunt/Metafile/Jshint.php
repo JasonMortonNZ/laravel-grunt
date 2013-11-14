@@ -9,27 +9,11 @@ class Jshint extends Metafile
     /**
      * @return array
      */
-    public function requirements()
-    {
-        return array();
-    }
-
-    /**
-     * @return array
-     */
     public function fileNames()
     {
         return array(
             '.jshintrc',
         );
-    }
-
-    /**
-     * @return array
-     */
-    public function preCommands()
-    {
-        return array();
     }
 
     /**
@@ -42,11 +26,4 @@ class Jshint extends Metafile
         );
     }
 
-    /**
-     * @return array
-     */
-    public function postCommands()
-    {
-        return array();
-    }
 }

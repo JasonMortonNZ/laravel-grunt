@@ -27,17 +27,6 @@ class Grunt extends Metafile
     /**
      * @return array
      */
-    public function fileNames()
-    {
-        return array(
-            'Gruntfile.js',
-            'package.json',
-        );
-    }
-
-    /**
-     * @return array
-     */
     public function ignoreFiles()
     {
         return array(

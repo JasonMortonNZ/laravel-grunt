@@ -22,17 +22,6 @@ class Bower extends Metafile
     /**
      * @return array
      */
-    public function fileNames()
-    {
-        return array(
-            'bower.json',
-            '.bowerrc',
-        );
-    }
-
-    /**
-     * @return array
-     */
     public function ignoreFiles()
     {
         $assetsPath = $this->config->get('laravel-grunt::assets_path');
