@@ -42,8 +42,8 @@ module.exports = function (grunt) {
                 },
                 files: [
                     '<%= yeoman.app %>/*.html',
-                    '<%= yeoman.tmp %>/styles/{,*/}*.css',
-                    '{<%= yeoman.tmp %>,<%= yeoman.app %>}/scripts/{,*/}*.js',
+                    'public/.tmp/styles/{,*/}*.css',
+                    '{public/.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
                 options: {
                     open: true,
                     base: [
-                        '<%= yeoman.tmp %>',
+                        'public/.tmp',
                         '<%= yeoman.app %>'
                     ]
                 }
@@ -67,7 +67,7 @@ module.exports = function (grunt) {
             test: {
                 options: {
                     base: [
-                        '<%= yeoman.tmp %>',
+                        'public/.tmp',
                         'test',
                         '<%= yeoman.app %>'
                     ]
@@ -85,13 +85,13 @@ module.exports = function (grunt) {
                 files: [{
                     dot: true,
                     src: [
-                        '<%= yeoman.tmp %>',
+                        'public/.tmp',
                         '<%= yeoman.dist %>/*',
                         '!<%= yeoman.dist %>/.git*'
                     ]
                 }]
             },
-            server: '<%= yeoman.tmp %>'
+            server: 'public/.tmp'
         },
         jshint: {
             options: {
@@ -118,7 +118,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: '<%= yeoman.app %>/scripts',
                     src: '{,*/}*.coffee',
-                    dest: '<%= yeoman.tmp %>/scripts',
+                    dest: 'public/.tmp/scripts',
                     ext: '.js'
                 }]
             },
@@ -127,7 +127,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: 'test/spec',
                     src: '{,*/}*.coffee',
-                    dest: '<%= yeoman.tmp %>/spec',
+                    dest: 'public/.tmp/spec',
                     ext: '.js'
                 }]
             }
@@ -135,8 +135,8 @@ module.exports = function (grunt) {
         compass: {
             options: {
                 sassDir: '<%= yeoman.app %>/styles',
-                cssDir: '<%= yeoman.tmp %>/styles',
-                generatedImagesDir: '<%= yeoman.tmp %>/images/generated',
+                cssDir: 'public/.tmp/styles',
+                generatedImagesDir: 'public/.tmp/images/generated',
                 imagesDir: '<%= yeoman.app %>/images',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
                 fontsDir: '<%= yeoman.app %>/styles/fonts',
@@ -165,9 +165,9 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.tmp %>/styles/',
+                    cwd: 'public/.tmp/styles/',
                     src: '{,*/}*.css',
-                    dest: '<%= yeoman.tmp %>/styles/'
+                    dest: 'public/.tmp/styles/'
                 }]
             }
         },
@@ -225,7 +225,7 @@ module.exports = function (grunt) {
             // dist: {
             //     files: {
             //         '<%= yeoman.dist %>/styles/main.css': [
-            //             '<%= yeoman.tmp %>/styles/{,*/}*.css',
+            //             'public/.tmp/styles/{,*/}*.css',
             //             '<%= yeoman.app %>/styles/{,*/}*.css'
             //         ]
             //     }
@@ -273,7 +273,7 @@ module.exports = function (grunt) {
                 expand: true,
                 dot: true,
                 cwd: '<%= yeoman.app %>/styles',
-                dest: '<%= yeoman.tmp %>/styles/',
+                dest: 'public/.tmp/styles/',
                 src: '{,*/}*.css'
             }
         },
