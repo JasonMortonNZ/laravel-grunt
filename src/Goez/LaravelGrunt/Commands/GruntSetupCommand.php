@@ -80,45 +80,11 @@ class GruntSetupCommand extends Command
 
         $this->info('Generating directories and files...');
 
-        foreach ($this->metaFiles as $metaFile) {
-            /* @var $metaFile \Goez\LaravelGrunt\Metafile */
-            $manifest = $metaFile->manifest();
-            $files = $metaFile->fileNames();
-
-            foreach ($manifest as $name => $type) {
-
-                if ($this->fs->exists($name)) {
-                    if (in_array($name, $files)) {
-                        $message = "Overwrite file '$name'? [y|N]";
-
-                        if ($this->confirm($message, false)) {
-                            $this->generate($name, $type);
-                        }
-                    }
-                } else {
-                    $this->generate($name, $type);
-                }
-            }
-        }
+        $this->generateFiles();
 
         $this->info('Installing packages...');
 
-        $ignoreFilePath = dirname(app_path()) . '/.gitignore';
-        foreach ($this->metaFiles as $metaFile) {
-            /* @var $metaFile \Goez\LaravelGrunt\Metafile */
-
-            $commands = $metaFile->postCommands();
-
-            foreach ($commands as $command) {
-                shell_exec($command);
-            }
-
-            $ignoreFiles = $metaFile->ignoreFiles();
-
-            foreach ($ignoreFiles as $file) {
-                $this->addToGitIgnore($ignoreFilePath, $file);
-            }
-        }
+        $this->runPostCommands();
     }
 
     protected function checkRequirements()
@@ -145,6 +111,30 @@ class GruntSetupCommand extends Command
     {
         $result = shell_exec($command);
         return starts_with($result, $check);
+    }
+
+    protected function generateFiles()
+    {
+        foreach ($this->metaFiles as $metaFile) {
+            /* @var $metaFile \Goez\LaravelGrunt\Metafile */
+            $manifest = $metaFile->manifest();
+            $files = $metaFile->fileNames();
+
+            foreach ($manifest as $name => $type) {
+
+                if ($this->fs->exists($name)) {
+                    if (in_array($name, $files)) {
+                        $message = "Overwrite file '$name'? [y|N]";
+
+                        if ($this->confirm($message, false)) {
+                            $this->generate($name, $type);
+                        }
+                    }
+                } else {
+                    $this->generate($name, $type);
+                }
+            }
+        }
     }
 
     /**
@@ -202,6 +192,26 @@ class GruntSetupCommand extends Command
         }
 
         return $content;
+    }
+
+    protected function runPostCommands()
+    {
+        $ignoreFilePath = dirname(app_path()) . '/.gitignore';
+        foreach ($this->metaFiles as $metaFile) {
+            /* @var $metaFile \Goez\LaravelGrunt\Metafile */
+
+            $commands = $metaFile->postCommands();
+
+            foreach ($commands as $command) {
+                shell_exec($command);
+            }
+
+            $ignoreFiles = $metaFile->ignoreFiles();
+
+            foreach ($ignoreFiles as $file) {
+                $this->addToGitIgnore($ignoreFilePath, $file);
+            }
+        }
     }
 
     /**
