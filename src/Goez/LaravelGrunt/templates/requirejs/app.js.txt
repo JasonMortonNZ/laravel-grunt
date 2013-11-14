@@ -1,6 +1,6 @@
-/* global define */
+/*global define */
 define([], function () {
     'use strict';
 
-    // Your logic here.
+    return 'Your logic here.';
 });
