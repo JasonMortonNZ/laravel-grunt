@@ -2,9 +2,10 @@
 
 namespace Goez\LaravelGrunt\Commands;
 
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Console\Command;
 use Illuminate\Config\Repository as Config;
-use Goez\LaravelGrunt\GeneratorInterface;
+use Goez\LaravelGrunt\Metafile;
 
 class GruntSetupCommand extends Command
 {
@@ -16,50 +17,50 @@ class GruntSetupCommand extends Command
     protected $name = 'grunt:setup';
 
     /**
-     * The consolse command description
+     * The console command description
      *
      * @var string
      */
-    protected $description = 'Generate metadata files for Grunt.';
+    protected $description = 'Generate directories and files for Grunt.';
 
     /**
-     * Path to the assets folder
-     *
-     * @var string
+     * @var \Illuminate\Filesystem\Filesystem
      */
-    protected $assetsPath;
+    protected $fs = null;
 
     /**
-     * List of user required grunt plugins
-     *
-     * @var array
+     * @var \Illuminate\Config\Repository
      */
-    protected $plugins = array();
-
-    /**
-     * GeneratorInterface Instance
-     *
-     * @var GeneratorInterface
-     */
-    protected $generator;
+    protected $config = null;
 
     /**
      * @var array
      */
-    protected $generators = array();
+    protected $metaFiles = array();
 
     /**
      * Constructor
      *
-     * @param array  $generators
-     * @param Config $config
+     * @param \Illuminate\Filesystem\Filesystem $fs
+     * @param \Illuminate\Config\Repository     $config
      */
-    public function __construct($generators, Config $config)
+    public function __construct(Filesystem $fs, Config $config)
     {
+        $this->fs = $fs;
+        $this->config = $config;
         parent::__construct();
+    }
 
-        $this->generators = $generators;
-        $this->assetsPath = $config->get('laravel-grunt::assets_path');
+    protected function initMetafiles()
+    {
+        $this->metaFiles = array(
+            new Metafile\Grunt($this->config),
+            new Metafile\Bower($this->config),
+            new Metafile\Jshint($this->config),
+            new Metafile\Mocha($this->config),
+            new Metafile\Assets($this->config),
+            new Metafile\Requirejs($this->config),
+        );
     }
 
     /**
@@ -69,130 +70,149 @@ class GruntSetupCommand extends Command
      */
     public function fire()
     {
-        // If user has both node and npm installed continue
-        if (!$this->hasNode() && !$this->hasNpm() && !$this->hasBower()) {
-            $this->error('It appears that either node or npm is not installed. Please install and try again!');
+        $this->initMetafiles();
 
-            return;
-        }
+        $this->info('Checking requirements...');
 
-        // Check if a gruntfile.js or package.json already exists
-        foreach ($this->generators as $generator)
-        if ($generator->filesExist()) {
-            if (! $this->askContinue($generator)) {
-                return;
+        foreach ($this->metaFiles as $metaFile) {
+            /* @var $metaFile \Goez\LaravelGrunt\Metafile */
+            $requirements = $metaFile->requirements();
+            foreach ($requirements as $target => $c) {
+                $result = $this->checkRequirement($c['command'], $c['check']);
+
+                $message = "$target ... " . ($result ? "yes" : "no");
+                $this->info($message);
+
+                if (!$result) {
+                    $this->error("$target is not installed.");
+                    return;
+                }
             }
         }
 
-        // Check if node and npm are installed
-        $this->info('Node and NPM are installed. Continue...');
-        $this->askQuestions();
+        $this->info('Generating directories and files...');
 
-        // Create package.json file & generate custom gruntfile.js
-        foreach ($this->generators as $generator) {
-            $generator->generate($this->plugins);
+        foreach ($this->metaFiles as $metaFile) {
+            /* @var $metaFile \Goez\LaravelGrunt\Metafile */
+            $manifest = $metaFile->manifest();
+            $files = $metaFile->fileNames();
+
+            foreach ($manifest as $name => $type) {
+
+                if ($this->fs->exists($name)) {
+                    if (in_array($name, $files)) {
+                        $message = "Overwrite file '$name'? [y|N]";
+
+                        if ($this->confirm($message, false)) {
+                            $this->generate($name, $type);
+                        }
+                    }
+                } else {
+                    $this->generate($name, $type);
+                }
+            }
         }
-        $this->info('Metadata files successfully created!');
 
-        $this->info('Install bower dependences...');
-        $this->installBowerDependences();
+        $this->info('Installing packages...');
 
-        $this->info('Installing / updating required grunt plugins...');
-        $this->installGruntPlugins();
+        $ignoreFilePath = dirname(app_path()) . '/.gitignore';
+        foreach ($this->metaFiles as $metaFile) {
+            /* @var $metaFile \Goez\LaravelGrunt\Metafile */
 
-    }
+            $commands = $metaFile->postCommands();
 
-    /**
-     * Files already exist, do you want to continue?
-     *
-     * @param  GeneratorInterface $generator
-     * @return boolean
-     */
-    protected function askContinue(GeneratorInterface $generator)
-    {
-        $filenames = $generator->getFilenames();
-
-        return ($this->confirm(
-            'A ' . implode(' or ', $filenames) .
-            ' file already exist and will be replaced.' .
-            ' Do you want to continue? [y|n]', false));
-    }
-
-    /**
-     * Ask the user which plugins they require
-     *
-     * @return void
-     */
-    protected function askQuestions()
-    {
-        // Do they want preprocessing?
-        $this->wantPreprocessing();
-    }
-
-    /**
-     * Ask user which preprocessor they require
-     *
-     * @return void
-     */
-    protected function wantPreprocessing()
-    {
-        if ($this->confirm('Do you require CSS preprocessing? [y|n]', false)) {
-            // Get answer from user
-            $preprocessor = strtolower($this->ask('Which CSS preprocessor do you require? [less|sass|stylus]'));
-
-            // While answer is not valid, ask again
-            while ( ! $preprocessor || ! in_array($preprocessor, array('less', 'sass', 'stylus'))) {
-                $preprocessor = $this->ask('I did not recognize that preprocessor. Please try again. [less|sass|stylus]');
+            foreach ($commands as $command) {
+                shell_exec($command);
             }
 
-            $this->plugins[] = $preprocessor;
+            $ignoreFiles = $metaFile->ignoreFiles();
+
+            foreach ($ignoreFiles as $file) {
+                $this->addToGitIgnore($ignoreFilePath, $file);
+            }
+        }
+
+
+    }
+
+    protected function checkRequirement($command, $check)
+    {
+        $result = shell_exec($command);
+        return starts_with($result, $check);
+    }
+
+    /**
+     * @param string $name
+     * @param string $type
+     */
+    protected function generate($name, $type)
+    {
+        static $templateFolderPath = null;
+        static $basePath = null;
+        static $options = null;
+
+        if (null === $templateFolderPath) {
+            $templateFolderPath = dirname(__DIR__) . '/templates/';
+        }
+
+        if (null === $basePath) {
+            $basePath = dirname(app_path());
+        }
+
+        if (null === $options) {
+            $options = $this->config->get('laravel-grunt::config');
+        }
+
+        $path = $basePath . '/' . $name;
+        $this->info($path);
+
+        if ($type === Metafile::DIR) {
+            if (!$this->fs->exists($path)) {
+                $this->fs->makeDirectory($path, 0777, true);
+            }
+        } else {
+            list(, $template) = explode(':', $type);
+            $templatePath = $templateFolderPath . $template;
+            $this->info($templatePath);
+
+            $content = $this->fs->get($templatePath);
+            $content = $this->addOptions($content, $options);
+            $this->fs->put($path, $content);
         }
     }
 
     /**
-     * Check if user has node installed
+     * Add the custom options to content
      *
-     * @return boolean
+     * @param  string $content
+     * @param  array  $options
+     * @return string
      */
-    protected function hasNode()
+    protected function addOptions($content, $options)
     {
-        $node = shell_exec('node -v');
+        foreach ($options as $option => $value) {
+            $pattern = '/{{\s*' . $option . '\s*}}/i';
+            $content = preg_replace($pattern, $value, $content);
+        }
 
-        return starts_with($node, 'v');
+        return $content;
     }
 
     /**
-     * Check if user has npm (node package manager) installed
+     * Add node_modules to .gitignore
      *
-     * @return boolean
+     * @param string $path
+     * @param string $entry
      */
-    protected function hasNpm()
+    public function addToGitIgnore($path, $entry)
     {
-        $npm = shell_exec('npm -v');
-
-        return starts_with($npm, '1.');
-    }
-
-    /**
-     * Check if user has bower installed
-     *
-     * @return boolean
-     */
-    protected function hasBower()
-    {
-        $bower = shell_exec('bower -v');
-
-        return starts_with($bower, '1');
-    }
-
-    protected function installBowerDependences()
-    {
-        shell_exec('bower install');
-    }
-
-    protected function installGruntPlugins()
-    {
-        shell_exec('npm install');
+        $lines = array_map('trim', file($path));
+        $entry = trim($entry);
+        if (!in_array($entry, $lines)) {
+            $lines[] = $entry;
+        }
+        $lines = array_unique($lines);
+        $this->fs->put($path, implode("\n", $lines) . "\n");
     }
 
 }
