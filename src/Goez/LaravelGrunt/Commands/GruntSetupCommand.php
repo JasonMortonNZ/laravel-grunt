@@ -74,20 +74,8 @@ class GruntSetupCommand extends Command
 
         $this->info('Checking requirements...');
 
-        foreach ($this->metaFiles as $metaFile) {
-            /* @var $metaFile \Goez\LaravelGrunt\Metafile */
-            $requirements = $metaFile->requirements();
-            foreach ($requirements as $target => $c) {
-                $result = $this->checkRequirement($c['command'], $c['check']);
-
-                $message = "$target ... " . ($result ? "yes" : "no");
-                $this->info($message);
-
-                if (!$result) {
-                    $this->error("$target is not installed.");
-                    return;
-                }
-            }
+        if (!$this->checkRequirements()) {
+            return;
         }
 
         $this->info('Generating directories and files...');
@@ -131,8 +119,26 @@ class GruntSetupCommand extends Command
                 $this->addToGitIgnore($ignoreFilePath, $file);
             }
         }
+    }
 
+    protected function checkRequirements()
+    {
+        foreach ($this->metaFiles as $metaFile) {
+            /* @var $metaFile \Goez\LaravelGrunt\Metafile */
+            $requirements = $metaFile->requirements();
+            foreach ($requirements as $target => $c) {
+                $result = $this->checkRequirement($c['command'], $c['check']);
 
+                $message = "$target ... " . ($result ? "yes" : "no");
+                $this->info($message);
+
+                if (!$result) {
+                    $this->error("$target is not installed.");
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     protected function checkRequirement($command, $check)
