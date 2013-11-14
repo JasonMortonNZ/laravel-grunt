@@ -131,7 +131,7 @@ class GruntSetupCommand extends Command
         foreach ($this->metaFiles as $metaFile) {
             /* @var $metaFile \Goez\LaravelGrunt\Metafile */
             $manifest = $metaFile->manifest();
-            $files = $metaFile->fileNames();
+            $files = $this->getFiles($manifest);
 
             foreach ($manifest as $name => $type) {
 
@@ -148,6 +148,19 @@ class GruntSetupCommand extends Command
                 }
             }
         }
+    }
+
+    protected function getFiles($manifest)
+    {
+        $files = [];
+
+        foreach ($manifest as $file => $entry) {
+            if (starts_with($entry, Metafile::TPL)) {
+                $files[] = $file;
+            }
+        }
+
+        return $files;
     }
 
     /**
