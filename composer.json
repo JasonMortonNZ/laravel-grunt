@@ -18,8 +18,11 @@
         "mockery/mockery": "dev-master"
     },
     "autoload": {
+        "files": [
+            "src/Goez/LaravelGrunt/helpers.php"
+        ],
         "psr-0": {
-            "Goez\\LaravelGrunt": [ "src/", "tests/" ]
+            "Goez\\LaravelGrunt": "src/"
         }
     },
     "minimum-stability": "dev"
