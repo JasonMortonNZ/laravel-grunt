@@ -16,7 +16,7 @@ module.exports = function (grunt) {
         // configurable paths
         yeoman: {
             app: '{{ assets_path }}',
-            dist: '{{ publish_path }}'
+            dist: '{{ dist_path }}'
         },
         watch: {
             coffee: {
