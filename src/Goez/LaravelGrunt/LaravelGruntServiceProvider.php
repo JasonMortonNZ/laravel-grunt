@@ -2,12 +2,7 @@
 
 namespace Goez\LaravelGrunt;
 
-use Goez\LaravelGrunt\Commands\GruntInitCommand;
 use Illuminate\Support\ServiceProvider;
-use Goez\LaravelGrunt\Grunt\Gruntfile;
-use Goez\LaravelGrunt\Grunt\GruntGenerator;
-use Goez\LaravelGrunt\Bower\Bowerfile;
-use Goez\LaravelGrunt\Bower\BowerGenerator;
 use Goez\LaravelGrunt\Commands\GruntConfigCommand;
 use Goez\LaravelGrunt\Commands\GruntSetupCommand;
 
