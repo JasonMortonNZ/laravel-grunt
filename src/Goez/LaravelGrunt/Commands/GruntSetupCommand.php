@@ -87,6 +87,11 @@ class GruntSetupCommand extends Command
         $this->runPostCommands();
     }
 
+    /**
+     * Check requirements.
+     *
+     * @return bool
+     */
     protected function checkRequirements()
     {
         foreach ($this->metaFiles as $metaFile) {
@@ -107,12 +112,20 @@ class GruntSetupCommand extends Command
         return true;
     }
 
+    /**
+     * @param string $command
+     * @param string $check
+     * @return bool
+     */
     protected function checkRequirement($command, $check)
     {
         $result = shell_exec($command);
         return starts_with($result, $check);
     }
 
+    /**
+     * Generate files.
+     */
     protected function generateFiles()
     {
         foreach ($this->metaFiles as $metaFile) {
@@ -194,6 +207,9 @@ class GruntSetupCommand extends Command
         return $content;
     }
 
+    /**
+     * Run commands after generation.
+     */
     protected function runPostCommands()
     {
         $ignoreFilePath = dirname(app_path()) . '/.gitignore';
