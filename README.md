@@ -1,5 +1,7 @@
 # Goez Laravel 4 + Grunt Asset Workflow
 
+** This package isn't stable for production. Testing and bug reporting are welcome. **
+
 * Base on [Laravel 4 + Grunt Asset Workflow Package - BETA](https://github.com/JasonMortonNZ/laravel-grunt).
 * Integrate workflow of [generator-webapp](https://github.com/yeoman/generator-webapp) of [Yeoman](http://yeoman.io/).
 
