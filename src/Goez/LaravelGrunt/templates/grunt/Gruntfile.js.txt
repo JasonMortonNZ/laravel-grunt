@@ -35,6 +35,10 @@ module.exports = function (grunt) {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: ['copy:styles', 'autoprefixer']
             },
+            scripts: {
+                files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+                tasks: ['copy:scripts']
+            },
             livereload: {
                 options: {
                     livereload: '<%= connect.options.livereload %>'
@@ -280,6 +284,15 @@ module.exports = function (grunt) {
                 cwd: '<%= yeoman.app %>/styles',
                 dest: 'public/.tmp/styles/',
                 src: '{,*/}*.css'
+            },
+            scripts: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= yeoman.app %>/scripts',
+                    dest: 'public/.tmp/scripts/',
+                    src: '{,*/}*.js'
+                }]
             }
         },
         modernizr: {
