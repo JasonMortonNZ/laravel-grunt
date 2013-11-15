@@ -1,38 +1,43 @@
 # Goez Laravel 4 + Grunt Asset Workflow
 
-** This package isn't stable for production. Testing and bug reporting are welcome. **
+*This package isn't stable for production. Testing and bug reporting are welcome.*
 
-* Base on [Laravel 4 + Grunt Asset Workflow Package - BETA](https://github.com/JasonMortonNZ/laravel-grunt).
-* Integrate workflow of [generator-webapp](https://github.com/yeoman/generator-webapp) of [Yeoman](http://yeoman.io/).
+## Features
+
+* Includes Compass, RequireJS. (References to [generator-webapp](https://github.com/yeoman/generator-webapp) of [Yeoman](http://yeoman.io/).) 
+* Helper for Laravel View.
 
 ## Installation
 
-Add the following line to your composer.json `"require-dev"` array:
+1. Add the following line to your composer.json `"require-dev"` array:
 
-`"goez/laravel-grunt": "dev-master"`
+   `"goez/laravel-grunt": "dev-master"`
 
-Then run `composer update --dev` in your terminal.
+2. Run `composer update --dev` in your terminal.
 
-Next, add the following line to the end of you `app/config.php` "providers array":
+3. Add the following line to the end of you `app/config.php` "providers array":
 
-`'Goez\LaravelGrunt\LaravelGruntServiceProvider',`
+   `'Goez\LaravelGrunt\LaravelGruntServiceProvider',`
 
-Then run the following command to add the configuration file to your `app/config/packages` directory:
+4. Run the following command to add the configuration file to your `app/config/packages` directory:
 
-`php artisan grunt:config`
+   `php artisan grunt:config`
 
-You can configure the path of assets and published files.
+5. You can configure the path of assets, and published files.
 This configuration file is located in your project's config directory, as below:
 
-	app/config/packages/goez/laravel-grunt/config.php
+   * `app/config/packages/goez/laravel-grunt/config.php`
+   * `app/config/packages/goez/laravel-grunt/local/config.php`
 
-**Note:** You can edit the `package.json`, `bower.json`, `Grunfile.js` directly after they are generated.
+6. Finally, run the following command to generate all metadata files and install packages in your app:
 
-Finally, run the following command to generate all metadata files and install packages in your app:
+   `php artisan grunt:setup`
 
-`php artisan grunt:setup`
+   **Note**: You can edit the `package.json`, `bower.json`, `Grunfile.js` directly after they are generated.
 
-Now you can use `bower` and `grunt` command to manage your assets.
+## Commands
+
+You can use `bower` and `grunt` command to manage your assets.
 
 * `bower` to list all commands of Bower.
 * `grunt --help` to list all commands of Grunt.
@@ -44,7 +49,7 @@ You can use the 'grunt_asset' helper to get asset url. Here are examples on blad
     <link rel="stylesheet" href="{{ grunt_asset('styles/hello.css') }}"/>
     <script src="{{ grunt_asset('styles/hello.css') }}"></script>
 
-Or use methods of `HTML` class:
+or:
 
     {{ HTML::style(grunt_asset('scripts/hello.js')) }}
     {{ HTML::script(grunt_asset('scripts/hello.js')) }}
@@ -58,6 +63,10 @@ Please report the bugs that you found to [Issus page](https://github.com/jaceju/
 - Jace Ju : [GitHub](https://github.com/jaceju)
 
 ### Original Contributors
+
+This package is base on [JasonMortonNZ / laravel-grunt](https://github.com/JasonMortonNZ/laravel-grunt). 
+
+Thanks to:
 
 - Jason Morton : [Github](https://github.com/JasonMortonNZ) | [Twitter @JasonMortonNZ](https://twitter.com/jasonmortonnz)
 - Thomas Clarkson : [Github](https://github.com/TomClarkson) | [Twitter @thomasclarkson9](https://twitter.com/thomasclarkson9)
