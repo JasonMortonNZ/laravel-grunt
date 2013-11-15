@@ -33,7 +33,9 @@ This configuration file is located in your project's config directory, as below:
 
    `php artisan grunt:setup`
 
-   **Note**: You can edit the `package.json`, `bower.json`, `Grunfile.js` directly after they are generated.
+**Note 1**: You can edit the `package.json`, `bower.json`, `Grunfile.js` directly after they are generated.
+   
+**Note 2**: You must rerun `grunt:config` and `grunt:setup` after you update this package with composer.
 
 ## Commands
 
