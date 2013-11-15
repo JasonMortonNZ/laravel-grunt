@@ -214,53 +214,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        svgmin: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/images',
-                    src: '{,*/}*.svg',
-                    dest: '<%= yeoman.dist %>/images'
-                }]
-            }
-        },
-        cssmin: {
-            // This task is pre-configured if you do not wish to use Usemin
-            // blocks for your CSS. By default, the Usemin block from your
-            // `index.html` will take care of minification, e.g.
-            //
-            //     <!-- build:css({public/.tmp,assets}) styles/main.css -->
-            //
-            // dist: {
-            //     files: {
-            //         '<%= yeoman.dist %>/styles/main.css': [
-            //             'public/.tmp/styles/{,*/}*.css',
-            //             '<%= yeoman.app %>/styles/{,*/}*.css'
-            //         ]
-            //     }
-            // }
-        },
-        htmlmin: {
-            dist: {
-                options: {
-                    /*removeCommentsFromCDATA: true,
-                    // https://github.com/yeoman/grunt-usemin/issues/44
-                    //collapseWhitespace: true,
-                    collapseBooleanAttributes: true,
-                    removeAttributeQuotes: true,
-                    removeRedundantAttributes: true,
-                    useShortDoctype: true,
-                    removeEmptyAttributes: true,
-                    removeOptionalTags: true*/
-                },
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.app %>',
-                    src: '*.html',
-                    dest: '<%= yeoman.dist %>'
-                }]
-            }
-        },
         // Put files not handled in other tasks here
         copy: {
             dist: {
@@ -319,9 +272,7 @@ module.exports = function (grunt) {
                 'coffee',
                 'compass',
                 'copy:styles',
-                'imagemin',
-                'svgmin',
-                'htmlmin'
+                'imagemin'
             ]
         },
         bower: {
@@ -363,7 +314,6 @@ module.exports = function (grunt) {
         'autoprefixer',
         'requirejs',
         'concat',
-        'cssmin',
         'uglify',
         'modernizr',
         'copy:dist'
