@@ -1,74 +1,96 @@
-# Goez Laravel 4 + Grunt Asset Workflow
+# Laravel 4 + Grunt Asset Workflow Package - BETA
 
-*This package isn't stable for production. Testing and bug reporting are welcome.*
+**Please help me by trialing out my package and providing feedback**
 
-## Features
+## Contents
 
-* Includes Compass, RequireJS. (References to [generator-webapp](https://github.com/yeoman/generator-webapp) of [Yeoman](http://yeoman.io/).) 
-* Helper for Laravel View.
+- [What this package includes and can do?](#what-this-package-includes-and-can-do)
+- [Configuration](#configuration)
+- [Installation](#installation)
+- [How to use?](#how-to-use)
+- [Issues - how to help](#issues---how-to-help)
 
-## Installation
+### What this package includes and can do?
+This package is design to help with asset management and front-end workflow when developing in Laravel 4.
 
-1. Add the following line to your composer.json `"require-dev"` array:
+The package can do the following:
 
-   `"goez/laravel-grunt": "dev-master"`
+- compile and minify CSS
+- compile and minify JavaScript
+- compile LESS
+- compile SASS
+- compile Stylus
+- build all asset group with one command
+- Live reload (watches asset files for changes and reloads the browser)
+- ** NOW include support for bower! **
 
-2. Run `composer update --dev` in your terminal.
+### Installation
+To install the 'Laravel 4 + Grunt Asset Worklow Package' simply add the following to your composer.json `"require-dev"` array:
 
-3. Add the following line to the end of you `app/config.php` "providers array":
+`"jason-morton-nz/laravel-grunt": "dev-master"`
 
-   `'Goez\LaravelGrunt\LaravelGruntServiceProvider',`
+Then run `composer update --dev` in your terminal.
 
-4. Run the following command to add the configuration file to your `app/config/packages` directory:
+Next, add the following line to the end of you `app/config.php` "providers array":
 
-   `php artisan grunt:config`
+`'JasonNZ\LaravelGrunt\LaravelGruntServiceProvider',`
 
-5. You can configure the path of assets, and published files.
-This configuration file is located in your project's config directory, as below:
+Finally, run the following command to add the configuration file to your `app/config/packages` directory:
 
-   * `app/config/packages/goez/laravel-grunt/config.php`
-   * `app/config/packages/goez/laravel-grunt/local/config.php`
+`php artisan grunt:config`
 
-6. Finally, run the following command to generate all metadata files and install packages in your app:
 
-   `php artisan grunt:setup`
+## Configuration
+You can configure many of the settings for this package, by traversing to it's configuration file. This file is located in you project's vendor directory, as below:
 
-**Note 1**: You can edit the `package.json`, `bower.json`, `Grunfile.js` directly after they are generated.
-   
-**Note 2**: You must rerun `grunt:config` and `grunt:setup` after you update this package with composer.
+	`app/config/packages/jason-nz/laravel-grunt/config.php`
 
-## Commands
+This file is heavily commented, so hopefully each setting should be self explainatory.
 
-You can use `bower` and `grunt` command to manage your assets.
+**Note:** please try not to edit the `package.json` and `grunfile.js` directly. Instead make your required changes in the config.php file, then run `php artisan grunt:setup` to apply the changes.
 
-* `bower` to list all commands of Bower.
-* `grunt --help` to list all commands of Grunt.
+### How to use?
+So, how do you use this package? Well we've tried to make it as simple as possible. There's just 3 commands:
 
-## Assets in view template
+#### grunt:setup
+The `grunt:setup` command is used to setup your requuired asset + grunt workflow. You use the command as follows:
 
-You can use the 'grunt_asset' helper to get asset url. Here are examples on blade template:
+`php artisan grunt:setup`
 
-    <link rel="stylesheet" href="{{ grunt_asset('styles/hello.css') }}"/>
-    <script src="{{ grunt_asset('styles/hello.css') }}"></script>
+The command will ask you a selection of questions, and the rest is all done for you.
 
-or:
+#### grunt:build
+The `grunt:build` command will run the grunt task runner and lint, compile, minify all your files, according to how you want things done. You use the command as follows:
 
-    {{ HTML::style(grunt_asset('scripts/hello.js')) }}
-    {{ HTML::script(grunt_asset('scripts/hello.js')) }}
+`php artisan grunt:build`
 
-## Bugs Report
+#### grunt:watch
+The `grunt:watch` command is used to start a the grunt file watcher. This will watch for any changes made to your front-end workflow files (CSS, JavaScript, LESS, SASS & Stylus), and will then auto-reload your web browser to reflect those changes. You can use the command as follows:
 
-Please report the bugs that you found to [Issus page](https://github.com/jaceju/laravel-grunt/issues) of this package.
+`php artisan grunt:watch`
+
+**Note:** That live reload will only work if you have a compatible browser (Chrome & Firefox) with the LiveReload plugin installed.
+
+#### bower:setup
+The `bower:setup` command will setup `bower.json` and `.bowerrc` files based upon the configuration settings you've specified in this packages `config.php` file. You can add a custom path for bowers vendor folder, as well as stipulate all the bower dependencies you require. All this can be done without touching a single line of JavaScript or JSON. You can use the command as follows:
+
+`php artisan bower:setup`
+
+#### bower:install
+The `bower:install` command is used to install you bower dependecies. You can use the command as follows:
+
+`php artisan bower:install`
+
+#### bower:update
+The `bower:update` command update your bower dependecies to newer versions if available. You can use the command as follows:
+
+`php artisan bower:update`
+
+## Issues - how to help?
+If you find any bugs, issues errors or believe we could add further useful functionality. Let us know via the github [issues page](https://github.com/JasonMortonNZ/laravel-grunt/issues) for this project here - [https://github.com/JasonMortonNZ/laravel-grunt/issues](https://github.com/JasonMortonNZ/laravel-grunt/issues).
 
 ### Contributors
-
-- Jace Ju : [GitHub](https://github.com/jaceju)
-
-### Original Contributors
-
-This package is base on [JasonMortonNZ / laravel-grunt](https://github.com/JasonMortonNZ/laravel-grunt). 
-
-Thanks to:
+Here's a list of people who have helped by contributing to this project to date:
 
 - Jason Morton : [Github](https://github.com/JasonMortonNZ) | [Twitter @JasonMortonNZ](https://twitter.com/jasonmortonnz)
 - Thomas Clarkson : [Github](https://github.com/TomClarkson) | [Twitter @thomasclarkson9](https://twitter.com/thomasclarkson9)

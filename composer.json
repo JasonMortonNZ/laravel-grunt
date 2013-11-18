@@ -1,28 +1,25 @@
 {
-    "name": "goez/laravel-grunt",
-    "description": "Asset manager for Laravel 4 using the power of Grunt.",
-    "version": "0.3.0",
-    "license": "MIT",
+    "name": "jason-nz/laravel-grunt",
+    "description": "Asset manangement package for Laravel 4 using the power of Grunt & Bower",
+    "homepage": "https://github.com/JasonMortonNZ/laravel-grunt",
+    "version": "0.0.1",
     "authors": [
-        {
-            "name": "Jace Ju",
-            "email": "jaceju@gmail.com"
-        }
+    {
+        "name": "JasonMortonNZ",
+        "homepage": "https://twitter.com/jasonmortonnz",
+        "role": "Developer"
+    }
     ],
     "require": {
         "php": ">=5.3.0",
         "illuminate/support": "4.0.x",
-        "illuminate/filesystem": "4.0.x"
-    },
-    "require-dev": {
-        "mockery/mockery": "dev-master"
+        "illuminate/config": "4.0.x",
+        "illuminate/console": "4.0.x",
+        "symfony/finder": "2.3.*"
     },
     "autoload": {
-        "files": [
-            "src/Goez/LaravelGrunt/helpers.php"
-        ],
         "psr-0": {
-            "Goez\\LaravelGrunt": "src/"
+            "JasonNZ\\LaravelGrunt": "src/"
         }
     },
     "minimum-stability": "dev"

@@ -1,3 +1,0 @@
-$icon-font-path: "/vendor/sass-bootstrap/fonts/";
-
-@import 'sass-bootstrap/lib/bootstrap';

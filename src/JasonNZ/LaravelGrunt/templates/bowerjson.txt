@@ -1,0 +1,7 @@
+{
+	"name": "Laravel 4 - Laravel Grunt Asset Management Package",
+	"version": "0.0.1",
+	"dependencies": {
+		{{bower_dependencies}}
+	}
+}
