@@ -37,6 +37,8 @@ Next, add the following line to the end of you `app/config.php` "providers array
 
 Finally, run the following command to add the configuration file to your `app/config/packages` directory:
 
+`php artisan config:publish jason-morton-nz/laravel-grunt`
+or
 `php artisan grunt:config`
 
 
