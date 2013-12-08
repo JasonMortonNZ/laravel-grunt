@@ -21,7 +21,7 @@ The package can do the following:
 - Live reload (watches asset files for changes and reloads the browser)
 
 ### Installation
-To install the 'Laravel 4 + Grunt Asset Worklow Package' simply add the following to your composer.json `"require-dev"` array:
+To install the 'Laravel 4 + Grunt Asset Workflow Package' simply add the following to your composer.json `"require-dev"` array:
 
 `"JasonMortonNZ/LaravelGrunt": "dev-master"`
 
@@ -29,7 +29,7 @@ To install the 'Laravel 4 + Grunt Asset Worklow Package' simply add the followin
 So, how do you use this package? Well we've tried to make it as simple as possible. There's just 3 commands:
 
 #### grunt:setup
-The `grunt:setup` command is used to setup your requuired asset + grunt workflow. You use the command as follows:
+The `grunt:setup` command is used to setup your required asset + grunt workflow. You use the command as follows:
 
 `php artisan grunt:setup`
 
