@@ -1,5 +1,5 @@
 {
-    "name": "jason-nz/laravel-grunt",
+    "name": "jason-morton-nz/laravel-grunt",
     "description": "Asset manangement package for Laravel 4 using the power of Grunt & Bower",
     "homepage": "https://github.com/JasonMortonNZ/laravel-grunt",
     "version": "0.0.1",
@@ -12,9 +12,9 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.1.x",
-        "illuminate/config": "4.1.x",
-        "illuminate/console": "4.1.x",
+        "illuminate/support": "4.1.*",
+        "illuminate/config": "4.1.*",
+        "illuminate/console": "4.1.*",
         "symfony/finder": "2.4.*"
     },
     "autoload": {
