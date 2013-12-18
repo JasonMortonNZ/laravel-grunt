@@ -171,12 +171,7 @@ class GruntSetupCommand extends Command {
 
 	protected function installGruntPlugins()
 	{
-		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
-		{
-		    shell_exec('npm install');
-		} else {
-		    shell_exec('sudo npm install');
-		}
+		shell_exec('npm install');
 	}
 	
 }
