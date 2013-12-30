@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-	
+
 	// Initialize configuration object
 	grunt.initConfig({
 
@@ -69,7 +69,7 @@ module.exports = function (grunt) {
 			watch: {
 				files: ['<%= options.js.files %>', '<%= options.css.files %>', '<%= options.less.base %>/*.less',
 				 '<%= options.sass.base %>/*.sass', '<%= options.stylus.base %>/*.styl',
-				 '!<%= option.js.min %>', '!<%= options.less.compiled %>', '!<%= options.sass.compiled %>', '!<%= options.stylus.compiled %>']
+				 '!<%= options.js.min %>', '!<%= options.less.compiled %>', '!<%= options.sass.compiled %>', '!<%= options.stylus.compiled %>']
 			}
 		},
 
