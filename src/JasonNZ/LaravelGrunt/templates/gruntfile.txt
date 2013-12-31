@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-	
+
 	// Initialize configuration object
 	grunt.initConfig({
 
@@ -68,8 +68,8 @@ module.exports = function (grunt) {
 			// Files and folders to watch for live reload and rebuild purposes
 			watch: {
 				files: ['<%= options.js.files %>', '<%= options.css.files %>', '<%= options.less.base %>/*.less',
-				 '<%= options.sass.base %>/*.sass', '<%= options.stylus.base %>/*.styl',
-				 '!<%= option.js.min %>', '!<%= options.less.compiled %>', '!<%= options.sass.compiled %>', '!<%= options.stylus.compiled %>']
+				 '<%= options.sass.base %>/*.sass', '<%= options.sass.base %>/*.scss', '<%= options.stylus.base %>/*.styl',
+				 '!<%= options.js.min %>', '!<%= options.less.compiled %>', '!<%= options.sass.compiled %>', '!<%= options.stylus.compiled %>']
 			}
 		},
 
