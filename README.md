@@ -25,6 +25,10 @@ The package can do the following:
 - ** NOW include support for bower! **
 
 ### Installation
+Before using this package please make sure you have bower & node installed globally. This can be done by running the following command:
+
+`npm install -g bower && npm install -g grunt-cli`
+
 To install the 'Laravel 4 + Grunt Asset Workflow Package' simply add the following to your composer.json `"require-dev"` array:
 
 `"jason-morton-nz/laravel-grunt": "dev-master"`
