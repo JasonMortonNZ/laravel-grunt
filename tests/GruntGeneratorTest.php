@@ -67,7 +67,7 @@ class GruntGeneratorTest extends  \PHPUnit_Framework_TestCase {
 
 	public function testAddsNodeModulesToGitignoreFile()
 	{
-		$this->filesystem->shouldReceive('append')->once()->andReturn('foo');
+		$this->filesystem->shouldReceive('get', 'append')->once()->andReturn('foo');
 		$this->generator->addToGitingnore('path', 'folder');
 	}
 
