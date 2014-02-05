@@ -17,6 +17,9 @@
         "illuminate/console": "4.1.*",
         "symfony/finder": "2.4.*"
     },
+    "require-dev": {
+        "mockery/mockery": "0.8.*"
+    },
     "autoload": {
         "psr-0": {
             "JasonNZ\\LaravelGrunt": "src/"
