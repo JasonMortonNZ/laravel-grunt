@@ -52,7 +52,7 @@ class GruntGenerator implements GeneratorInterface {
 		$this->createGruntfile($plugins);
 
 		// Add node_modules to .gitignore
-		$nodeModulesPath = "\n/" . $this->config->get('laravel-grunt::assets_path') . "/node_modules";
+		$nodeModulesPath = "\n" . "/node_modules";
 		$this->addToGitingnore('.gitignore', $nodeModulesPath);
 	}
 
