@@ -168,12 +168,12 @@ return array(
 	| sensible default, but feel free to update it.
 	| 
 	| **Note**: Please use key/value pair to represent dependency & version. Use 
-	| the word "null" if you require the latest version, or don't know a version
+	| the asterisk "*" if you require the latest version, or don't know a version
 	| number
 	|
 	*/
 	"bower_dependencies" => array(
-		"jquery"    => "~1.10.2",
+		"jquery"    => "~1.10",
 		"bootstrap" => "~3"
 	),
 
