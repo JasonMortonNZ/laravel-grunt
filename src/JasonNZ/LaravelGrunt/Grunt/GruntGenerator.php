@@ -104,7 +104,11 @@ class GruntGenerator implements GeneratorInterface {
 	 */
 	public function addToGitingnore($path, $folder)
 	{
-		$this->filesystem->append($path, $folder);
+		// Check if folder already exists
+		$contents = $this->filesystem->get($path);
+		if ( ! str_contains($contents, $folder)) {
+			$this->filesystem->append($path, $folder);
+		}
 	}
 
 	/**
