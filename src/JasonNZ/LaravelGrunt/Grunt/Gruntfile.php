@@ -31,7 +31,7 @@ class Gruntfile {
 	 * 
 	 * @var array
 	 */
-	protected $options = array('assets_path', 'publish_path', 'css_path', 'css_files', 'js_path', 'js_files', 'less_path', 'less_file', 'sass_path', 'sass_file', 'stylus_path', 'stylus_file');
+	protected $options = array('assets_path', 'publish_path', 'css_path', 'css_output_name', 'css_files', 'js_path', 'js_output_name', 'js_files', 'less_path', 'less_file', 'sass_path', 'sass_file', 'stylus_path', 'stylus_file');
 
 	/**
 	 * Constructor
