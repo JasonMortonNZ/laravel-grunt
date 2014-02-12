@@ -160,6 +160,9 @@ class LaravelGruntServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('jason-morton-nz/laravel-grunt');
+
+                require_once __DIR__ . '/../../routes.php';
+
 	}
 
 	/**
