@@ -25,7 +25,7 @@ class BowerUpdateCommand extends Command {
 	public function fire()
 	{
 		$this->info('Updating bower dependencies...');
-		shell_exec('bower update');
+		passthru('bower update');
 	}
 
 }

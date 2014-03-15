@@ -56,6 +56,12 @@ module.exports = function (grunt) {
 				file: '{{stylus_file}}',							// STYLUS file (ideally, one file which contains imports)
 				compiled: '<%= options.css.base %>/stylus.css'		// Name of the compiled STYLUS file
 			},
+                        
+                        // IMAGEMIN Settings
+                        imagemin: {
+                            base: '<%= options.base %>/img',
+                            publish: '<%= options.publish %>/img'
+                        },
 
 			// Notification messages
 			notify: {
@@ -184,9 +190,48 @@ module.exports = function (grunt) {
 			},
 			files: '<%= options.watch.files %>',
 			tasks: ['default', 'notify:watch']
-		}
+		},
 
-
+                // Optimize images
+                imagemin: {
+                    png: {
+                        options: {
+                            optimizationLevel: {{png_optimization_level}},
+                            pngquant: {{png_compression}}
+                        },
+                        files: [{
+                            expand: true,
+                            cwd: '<%= options.imagemin.base %>',
+                            src: ['**/*.png'],
+                            dest: '<%= options.imagemin.publish %>',
+                            ext: '.png'
+                        }]
+                    },
+                    jpg: {
+                        options: {
+                            progressive: {{jpg_progressive}}
+                        },
+                        files: [{
+                            expand: true,
+                            cwd: '<%= options.imagemin.base %>',
+                            src: ['**/*.jpg'],
+                            dest: '<%= options.imagemin.publish %>',
+                            ext: '.jpg'
+                        }]
+                    },
+                    gif: {
+                        options: {
+                            interlaced: {{gif_interlaced}}
+                        },
+                        files: [{
+                            expand: true,
+                            cwd: '<%= options.imagemin.base %>',
+                            src: ['**/*.gif'],
+                            dest: '<%= options.imagemin.publish %>',
+                            ext: '.gif'
+                        }]
+                    }
+                }
 	});
 
 	// Load npm tasks
@@ -201,8 +246,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-livereload');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-notify');
 
 	// Register tasks
-	grunt.registerTask('default', ['clean:all', {{tasks}} 'concat:css', 'concat:js', 'cssmin', 'uglify', 'clean:concat']); // Default task
-}
+	grunt.registerTask('default', ['clean:all', 'jshint', {{tasks}} 'concat:css', 'concat:js', 'cssmin', 'imagemin', 'uglify', 'clean:concat']); // Default task
+};

@@ -47,8 +47,8 @@ return array(
 	|
 	*/
 	'css_files' => array(
-		'assets/css/style_one.css',
-		'assets/css/style_two.css'
+		'assets/css/*.css',
+		//'assets/css/style_two.css'
 	),
 
 	/*
@@ -73,8 +73,8 @@ return array(
 	|
 	*/
 	'js_files' => array(
-		'assets/js/script_one.js',
-		'assets/js/script_two.js'
+		'assets/js/*.js',
+		//'assets/js/script_two.js'
 	),
 
 	/*
@@ -158,6 +158,23 @@ return array(
 	|
 	*/
 	"vendor_path" => "assets/vendor",
+    
+    
+        /*
+	|--------------------------------------------------------------------------
+	| ImageMin Configuration
+	|--------------------------------------------------------------------------
+	|
+	| This is where you can specify configuration for grunt-contrib-imagemin,
+        | a library that optimizes .jpgs, .gifs and .pngs.
+        | 
+        | https://github.com/gruntjs/grunt-contrib-imagemin
+	|
+	*/
+	"png_optimization_level" => 7,
+        "png_compression" => true,
+        "jpg_progressive" => true,
+        "gif_interlaced" => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -174,7 +191,9 @@ return array(
 	*/
 	"bower_dependencies" => array(
 		"jquery"    => "~1.10",
-		"bootstrap" => "~3"
+		"bootstrap" => "~3",
+                "html5shiv" => "~3.7",
+                "respond" => "~1.4"
 	),
 
 );
