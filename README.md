@@ -20,9 +20,11 @@ The package can do the following:
 - compile LESS
 - compile SASS
 - compile Stylus
+- optimize images (thanks grunt-contrib-imagemin!!)
 - build all asset group with one command
 - Live reload (watches asset files for changes and reloads the browser)
-- ** NOW include support for bower! **
+- ** NOW includes support for bower! **
+- ** NOW ALSO includes support for grunt-contrib-imagemin! **
 
 ### Installation
 Before using this package please make sure you have bower & node installed globally. This can be done by running the following command:
