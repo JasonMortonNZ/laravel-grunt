@@ -25,7 +25,7 @@ class GruntBuildCommand extends Command {
 	public function fire()
 	{
 		$this->info('Running grunt...and rebuilding assets.');
-		shell_exec('grunt');
+		passthru('grunt');
 	}
 
 }

@@ -25,7 +25,7 @@ class BowerInstallCommand extends Command {
 	public function fire()
 	{
 		$this->info('Installing bower dependencies...');
-		shell_exec('bower install');
+		passthru('bower install');
 	}
 
 }

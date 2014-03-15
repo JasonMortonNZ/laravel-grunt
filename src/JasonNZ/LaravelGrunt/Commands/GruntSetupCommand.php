@@ -87,7 +87,7 @@ class GruntSetupCommand extends Command {
 
 		// Create package.json file & generate custom gruntfile.js
 		$this->generator->generate($this->plugins);
-		$this->info('package.json & gruntfile.js successfully created!');
+		$this->info('package.json & Gruntfile.js successfully created!');
 
 		// Install / update modules, different command for each os type
 		$this->info('Installing / updating required grunt plugins...');
@@ -102,7 +102,7 @@ class GruntSetupCommand extends Command {
 	 */
 	protected function askContinue()
 	{
-		if($this->confirm('A gruntfile.js or package.json file already exist and will be replaced. Do you want to continue? [yes|no]', false))
+		if($this->confirm('A Gruntfile.js or package.json file already exist and will be replaced. Do you want to continue? [yes|no]', false))
 		{
 			return true;
 		}
@@ -171,7 +171,7 @@ class GruntSetupCommand extends Command {
 
 	protected function installGruntPlugins()
 	{
-		shell_exec('npm install');
+		passthru('npm install');
 	}
 	
 }

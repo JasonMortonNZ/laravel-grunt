@@ -31,7 +31,24 @@ class Gruntfile {
 	 * 
 	 * @var array
 	 */
-	protected $options = array('assets_path', 'publish_path', 'css_path', 'css_files', 'js_path', 'js_files', 'less_path', 'less_file', 'sass_path', 'sass_file', 'stylus_path', 'stylus_file');
+	protected $options = array(
+            'assets_path', 
+            'publish_path', 
+            'css_path', 
+            'css_files', 
+            'js_path', 
+            'js_files', 
+            'less_path', 
+            'less_file', 
+            'sass_path', 
+            'sass_file', 
+            'stylus_path', 
+            'stylus_file',
+            'png_optimization_level',
+            'png_compression',
+            'jpg_progressive',
+            'gif_interlaced'
+        );
 
 	/**
 	 * Constructor
@@ -134,7 +151,7 @@ class Gruntfile {
 	 */
 	protected function getPath()
 	{
-		return $this->path . '/gruntfile.js';
+		return $this->path . '/Gruntfile.js';
 	}
 
 	/**

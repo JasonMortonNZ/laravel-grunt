@@ -30,7 +30,7 @@ class GruntWatchCommand extends Command {
 	public function fire()
 	{
 		$this->info('Running grunt watch....');
-		shell_exec('grunt watch');
+		passthru('grunt watch');
 	}
 
 }
