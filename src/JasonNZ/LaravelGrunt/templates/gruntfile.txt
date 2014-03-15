@@ -251,4 +251,4 @@ module.exports = function (grunt) {
 
 	// Register tasks
 	grunt.registerTask('default', ['clean:all', {{tasks}} 'concat:css', 'concat:js', 'cssmin', 'imagemin', 'uglify', 'clean:concat']); // Default task
-}
+};
