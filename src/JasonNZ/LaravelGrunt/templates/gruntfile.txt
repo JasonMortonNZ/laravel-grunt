@@ -250,5 +250,5 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-notify');
 
 	// Register tasks
-	grunt.registerTask('default', ['clean:all', {{tasks}} 'concat:css', 'concat:js', 'cssmin', 'imagemin', 'uglify', 'clean:concat']); // Default task
+	grunt.registerTask('default', ['clean:all', 'jshint', {{tasks}} 'concat:css', 'concat:js', 'cssmin', 'imagemin', 'uglify', 'clean:concat']); // Default task
 };
