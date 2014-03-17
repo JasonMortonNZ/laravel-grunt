@@ -76,7 +76,10 @@ module.exports = function (grunt) {
 		// Clean files and folders before replacement
 		clean: {
 			all: {
-				src: '<%= options.clean.all %>'
+				src:[
+					'<%= options.clean.all %>',
+					'tmp'
+				]
 			},
 			concat: {
 				src: '<%= options.clean.concat %>'
@@ -105,8 +108,8 @@ module.exports = function (grunt) {
 		// Minify and concatenate CSS files
 		cssmin: {
 			minify: {
-	       		src: '<%= options.css.concat %>',
-	        	dest: '<%= options.css.min %>'
+				src: '<%= options.css.concat %>',
+				dest: '<%= options.css.min %>'
 			}
 		},
 
@@ -140,20 +143,32 @@ module.exports = function (grunt) {
 
 		// Compile SASS files
 		sass: {
-		    main: {
-		        files: {
-		        	'<%= options.sass.compiled %>': '<%= options.sass.file %>'
-		        }
-		    }
+			dist: {
+				files: {
+					'<%= options.sass.compiled %>': '<%= options.sass.file %>'
+				}
+			},
+			options: {
+				sourcemap: true,
+				loadPath: ['{{vendor_path}}'],
+			},
+			main: {
+				files: [{
+					expand: true,
+					src: ['<%= options.sass.base %>/{,*/}*.{scss,sass}'],
+					dest: './tmp',
+					ext: '.css'
+				}]
+			}
 		},
 
 		// Compile STYLUS files
 		stylus: {
-		    main: {
-		        files: {
-		        	'<%= options.stylus.compiled %>': '<%= options.stylus.file %>'
-		        }
-		    }
+			main: {
+				files: {
+					'<%= options.stylus.compiled %>': '<%= options.stylus.file %>'
+				}
+			}
 		},
 
 		// Display notifications
@@ -179,14 +194,22 @@ module.exports = function (grunt) {
 
 		// Watch for files and folder changes
 		watch: {
-			options: {
-				livereload: true
+			sass: {
+				files: ['<%= options.sass.base %>/{,*/}*.{scss,sass}'],
+				tasks: ['sass']
 			},
-			files: '<%= options.watch.files %>',
-			tasks: ['default', 'notify:watch']
+			livereload: {
+				options: {
+					livereload: 35729,
+				},
+				files: [
+					'app/views/*/*.php',
+					'{tmp/<%= options.css.base %>,<%= options.css.base %>}/{,*/}*.css',
+					'{tmp/<%= options.js.base %>,<%= options.js.base %>}/{,*/}*.js',
+					'{tmp/<%= options.sass.base %>,<%= options.sass.base %>}/{,*/}*.css',
+				]
+			}
 		}
-
-
 	});
 
 	// Load npm tasks
@@ -205,4 +228,5 @@ module.exports = function (grunt) {
 
 	// Register tasks
 	grunt.registerTask('default', ['clean:all', {{tasks}} 'concat:css', 'concat:js', 'cssmin', 'uglify', 'clean:concat']); // Default task
+	grunt.registerTask('dist', ['clean:all', {{tasks}} 'sass:dist', 'concat:css', 'concat:js', 'cssmin', 'uglify', 'clean:concat']);
 }
