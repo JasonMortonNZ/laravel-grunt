@@ -25,7 +25,7 @@ module.exports = function (grunt) {
 				base: '{{css_path}}',			 				// Base path to your CSS folder
 				files: [{{css_files}}],							// CSS files in order you'd like them concatenated and minified
 				concat: '<%= options.css.base %>/concat.css',	// Name of the concatenated CSS file
-				min: '<%= options.publish %>/style.min.css'		// Name of the minified CSS file
+				min: '<%= options.publish %>/{{css_output_name}}.min.css'		// Name of the minified CSS file
 			},
 
 			// JavaScript settings
@@ -33,7 +33,7 @@ module.exports = function (grunt) {
 				base: '{{js_path}}',							// Base path to you JS folder
 				files: [{{js_files}}],							// JavaScript files in order you'd like them concatenated and minified
 				concat: '<%= options.js.base %>/concat.js',		// Name of the concatenated JavaScript file
-				min: '<%= options.publish %>/script.min.js'		// Name of the minified JavaScript file
+				min: '<%= options.publish %>/{{js_output_name}}.min.js'		// Name of the minified JavaScript file
 			},
 
 			// LESS Settings

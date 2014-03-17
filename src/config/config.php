@@ -38,6 +38,17 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
+	| The CSS Output Name
+	|--------------------------------------------------------------------------
+	|
+	| This is where you can specify a custom name to your CSS
+	| file. We've set a sensible default, but feel free to update it.
+	|
+	*/
+	'css_output_name' => 'style',
+
+	/*
+	|--------------------------------------------------------------------------
 	| The CSS File Order
 	|--------------------------------------------------------------------------
 	|
@@ -61,6 +72,17 @@ return array(
 	|
 	*/
 	'js_path' => 'assets/js',
+
+	/*
+	|--------------------------------------------------------------------------
+	| The JavaScript Output Name
+	|--------------------------------------------------------------------------
+	|
+	| This is where you can specify a custom name to your JavaScript
+	| file. We've set a sensible default, but feel free to update it.
+	|
+	*/
+	'js_output_name' => 'script',
 
 	/*
 	|--------------------------------------------------------------------------
