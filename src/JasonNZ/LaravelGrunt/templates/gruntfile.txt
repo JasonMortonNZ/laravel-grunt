@@ -209,6 +209,11 @@ module.exports = function (grunt) {
 					'{tmp/<%= options.sass.base %>,<%= options.sass.base %>}/{,*/}*.css',
 				]
 			}
+			options: {
+				livereload: true
+			},
+			files: '<%= options.watch.files %>',
+			tasks: ['default', 'notify:watch']
 		}
 	});
 
