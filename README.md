@@ -1,4 +1,7 @@
-# Laravel 4 + Grunt Asset Workflow Package - BETA
+# Please note:
+This package is no long being maintained!! Since discovering the Gulp task runner, and finding how easy it is to install, setup and use I've opted to drop GruntJS from my workflow.
+
+## Laravel 4 + Grunt Asset Workflow Package - BETA
 
 **Please help me by trialing out my package and providing feedback**
 
