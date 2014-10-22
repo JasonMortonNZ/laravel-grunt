@@ -208,7 +208,7 @@ module.exports = function (grunt) {
 					'{tmp/<%= options.js.base %>,<%= options.js.base %>}/{,*/}*.js',
 					'{tmp/<%= options.sass.base %>,<%= options.sass.base %>}/{,*/}*.css',
 				]
-			}
+			},
 			options: {
 				livereload: true
 			},
